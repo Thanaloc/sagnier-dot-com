@@ -12,10 +12,10 @@ interface FeaturedGridProps {
 }
 
 const layouts = [
-  { width: "100%", justify: "center" as const },
+  { width: "100%", justify: "flex-end" as const },
   { width: "75%", justify: "flex-end" as const },
-  { width: "90%", justify: "center" as const },
-  { width: "70%", justify: "flex-start" as const },
+  { width: "90%", justify: "flex-end" as const },
+  { width: "70%", justify: "flex-end" as const },
   { width: "85%", justify: "flex-end" as const },
 ];
 
@@ -47,7 +47,7 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
         </h2>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto mb-16">
         {photos.map((photo, index) => (
           <FeaturedPhoto
             key={photo.id}

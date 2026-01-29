@@ -34,7 +34,7 @@ export function GalleryFilter({ active, onChange }: GalleryFilterProps) {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="flex flex-wrap items-center justify-center gap-8 md:gap-10"
+        className="flex flex-wrap items-center justify-center gap-10 md:gap-12"
       >
         {categories.map((cat) => {
           const label = cat ? categoryLabels[cat] : "Tout";
@@ -45,17 +45,25 @@ export function GalleryFilter({ active, onChange }: GalleryFilterProps) {
               key={label}
               onClick={() => onChange(cat)}
               className={clsx(
-                "relative text-[11px] tracking-[0.25em] uppercase transition-all duration-500 pb-3",
-                isActive ? "text-foreground" : "text-foreground/30 hover:text-foreground/60"
+                "relative text-[11px] tracking-[0.25em] uppercase transition-all duration-500 pb-3 group",
+                isActive ? "text-foreground" : "text-foreground/50 hover:text-foreground/90"
               )}
             >
-              {label}
-              {isActive && (
+              <motion.span
+                className="inline-block"
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                {label}
+              </motion.span>
+              {isActive ? (
                 <motion.span
                   layoutId="filter-active"
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-detail rounded-full"
-                  transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                  className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-detail rounded-full"
+                  transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                 />
+              ) : (
+                <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-foreground/30 rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
               )}
             </button>
           );

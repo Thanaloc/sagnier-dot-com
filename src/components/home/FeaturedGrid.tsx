@@ -47,7 +47,7 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
         </h2>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto mb-16">
+      <div>
         {photos.map((photo, index) => (
           <FeaturedPhoto
             key={photo.id}
@@ -63,7 +63,8 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="text-center mt-44"
+        className="text-center"
+        style={{ marginTop: "11rem" }}
       >
         <Button href="/collection" variant="pill">
           Toute la collection

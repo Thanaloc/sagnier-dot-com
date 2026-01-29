@@ -87,7 +87,7 @@ export function Gallery({ initialPhotos }: GalleryProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            style={{ paddingTop: "5rem" }}
+            style={{ paddingTop: "1.5rem" }}
           >
             <PhotoGrid photos={filteredPhotos} onPhotoClick={setLightboxPhoto} />
           </motion.div>

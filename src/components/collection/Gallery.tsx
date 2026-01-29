@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import type { Photo, PhotoCategory } from "@/types/photo";
 import { getPhotosByCategory } from "@/data/photos";
 import { GalleryFilter } from "./GalleryFilter";
-import { PhotoCard } from "@/components/ui/PhotoCard";
+import { ParallaxPhoto } from "./ParallaxPhoto";
 import { Lightbox } from "@/components/ui/Lightbox";
 
 interface GalleryProps {
@@ -41,13 +41,13 @@ export function Gallery({ initialPhotos }: GalleryProps) {
     <>
       <GalleryFilter active={activeCategory} onChange={setActiveCategory} />
 
-      <div className="max-w-7xl mx-auto columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
-        <AnimatePresence mode="popLayout">
+      <div className="max-w-6xl mx-auto space-y-24 md:space-y-40">
+        <AnimatePresence mode="wait">
           {filteredPhotos.map((photo, index) => (
-            <PhotoCard
+            <ParallaxPhoto
               key={photo.id}
               photo={photo}
-              priority={index < 3}
+              index={index}
               onClick={setLightboxPhoto}
             />
           ))}

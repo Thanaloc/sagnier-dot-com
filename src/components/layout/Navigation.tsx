@@ -13,10 +13,10 @@ export function Navigation() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <nav className="flex items-center justify-between px-6 py-5 md:px-12 lg:px-20">
+      <nav className="flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
         <Link
           href="/"
-          className="relative z-50 text-lg font-light tracking-[0.3em] uppercase text-foreground hover:text-detail transition-colors duration-300"
+          className="relative z-50 text-lg font-display font-light tracking-[0.3em] uppercase text-foreground hover:text-detail transition-colors duration-500"
           onClick={() => setMenuOpen(false)}
         >
           Sagnier
@@ -35,24 +35,24 @@ export function Navigation() {
 
 function DesktopMenu({ pathname }: { pathname: string }) {
   return (
-    <ul className="hidden md:flex items-center gap-8">
+    <ul className="hidden md:flex items-center gap-10">
       {navigation.map((item) => (
         <li key={item.href}>
           <Link
             href={item.href}
             className={clsx(
-              "relative text-sm tracking-[0.15em] uppercase transition-colors duration-300",
+              "relative text-xs tracking-[0.2em] uppercase transition-colors duration-500",
               pathname === item.href
                 ? "text-detail"
-                : "text-foreground/70 hover:text-foreground"
+                : "text-foreground/50 hover:text-foreground"
             )}
           >
             {item.label}
             {pathname === item.href && (
               <motion.span
                 layoutId="nav-underline"
-                className="absolute -bottom-1 left-0 right-0 h-px bg-detail"
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute -bottom-1.5 left-0 right-0 h-px bg-detail"
+                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
               />
             )}
           </Link>
@@ -72,17 +72,17 @@ function MobileMenuButton({ open, toggle }: { open: boolean; toggle: () => void 
       <motion.span
         animate={open ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
         className="block w-full h-px bg-foreground origin-center"
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       />
       <motion.span
         animate={open ? { opacity: 0 } : { opacity: 1 }}
         className="block w-full h-px bg-foreground"
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.3 }}
       />
       <motion.span
         animate={open ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
         className="block w-full h-px bg-foreground origin-center"
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       />
     </button>
   );
@@ -94,7 +94,7 @@ function MobileMenu({ pathname, onClose }: { pathname: string; onClose: () => vo
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
       className="fixed inset-0 z-40 bg-background flex items-center justify-center"
     >
       <motion.ul
@@ -102,28 +102,28 @@ function MobileMenu({ pathname, onClose }: { pathname: string; onClose: () => vo
         animate="visible"
         exit="hidden"
         variants={{
-          visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
-          hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+          visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
+          hidden: { transition: { staggerChildren: 0.06, staggerDirection: -1 } },
         }}
-        className="flex flex-col items-center gap-8"
+        className="flex flex-col items-center gap-10"
       >
         {navigation.map((item) => (
           <motion.li
             key={item.href}
             variants={{
-              hidden: { opacity: 0, y: 20 },
+              hidden: { opacity: 0, y: 30 },
               visible: { opacity: 1, y: 0 },
             }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <Link
               href={item.href}
               onClick={onClose}
               className={clsx(
-                "text-2xl tracking-[0.2em] uppercase transition-colors duration-300",
+                "text-2xl font-display font-light tracking-[0.2em] uppercase transition-colors duration-500",
                 pathname === item.href
                   ? "text-detail"
-                  : "text-foreground/70 hover:text-foreground"
+                  : "text-foreground/60 hover:text-foreground"
               )}
             >
               {item.label}

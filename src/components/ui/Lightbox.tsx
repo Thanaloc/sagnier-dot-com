@@ -39,16 +39,16 @@ export function Lightbox({ photo, onClose, onNext, onPrev }: LightboxProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm"
           onClick={onClose}
         >
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10"
+            className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors duration-500 z-10"
             aria-label="Fermer"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
@@ -56,10 +56,10 @@ export function Lightbox({ photo, onClose, onNext, onPrev }: LightboxProps) {
           {onPrev && (
             <button
               onClick={(e) => { e.stopPropagation(); onPrev(); }}
-              className="absolute left-4 md:left-8 text-white/50 hover:text-white transition-colors z-10"
+              className="absolute left-4 md:left-8 text-white/30 hover:text-white transition-colors duration-500 z-10"
               aria-label="Photo precedente"
             >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
                 <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
@@ -68,10 +68,10 @@ export function Lightbox({ photo, onClose, onNext, onPrev }: LightboxProps) {
           {onNext && (
             <button
               onClick={(e) => { e.stopPropagation(); onNext(); }}
-              className="absolute right-4 md:right-8 text-white/50 hover:text-white transition-colors z-10"
+              className="absolute right-4 md:right-8 text-white/30 hover:text-white transition-colors duration-500 z-10"
               aria-label="Photo suivante"
             >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </button>
@@ -79,10 +79,10 @@ export function Lightbox({ photo, onClose, onNext, onPrev }: LightboxProps) {
 
           <motion.div
             key={photo.id}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, scale: 0.92 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
             className="relative max-w-[90vw] max-h-[85vh]"
             onClick={(e) => e.stopPropagation()}
           >

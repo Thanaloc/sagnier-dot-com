@@ -17,31 +17,63 @@ export const breakpoints = {
   "2xl": 1536,
 } as const;
 
+const tidal = [0.25, 0.1, 0.25, 1] as const;
+const drift = [0.4, 0, 0.2, 1] as const;
+
 export const transitions = {
   page: {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -20 },
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 1, ease: tidal },
   },
   stagger: {
     animate: {
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
       },
     },
   },
   fadeUp: {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+    initial: { opacity: 0, y: 40 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.2, ease: tidal },
+    },
   },
   fadeIn: {
     initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { duration: 0.8 } },
+    animate: {
+      opacity: 1,
+      transition: { duration: 1.4, ease: drift },
+    },
   },
   scaleIn: {
-    initial: { opacity: 0, scale: 0.95 },
-    animate: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+    initial: { opacity: 0, scale: 0.92 },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 1, ease: tidal },
+    },
+  },
+  slideUp: {
+    initial: { opacity: 0, y: 60 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.4, ease: drift },
+    },
+  },
+  parallaxReveal: {
+    initial: { opacity: 0, y: 100, scale: 0.95 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 1.6, ease: tidal },
+    },
   },
 } as const;
 

@@ -10,6 +10,7 @@ Portfolio website for a surf/ocean photographer. Clean, minimal design that puts
 - **Language:** TypeScript (strict mode)
 - **Styling:** Tailwind CSS 4
 - **Animations:** Framer Motion
+- **Smooth Scroll:** Lenis
 - **Deployment:** Vercel
 - **Package Manager:** npm
 
@@ -27,7 +28,7 @@ npm run lint      # Run ESLint
 ```
 src/
 ├── app/                    # Next.js App Router pages
-│   ├── layout.tsx          # Root layout (nav + footer)
+│   ├── layout.tsx          # Root layout (nav + footer + smooth scroll)
 │   ├── page.tsx            # Home page
 │   ├── globals.css         # Global styles + Tailwind theme
 │   ├── collection/
@@ -37,11 +38,11 @@ src/
 │   └── contact/
 │       └── page.tsx        # Contact form page
 ├── components/
-│   ├── layout/             # Navigation, Footer, PageTransition
+│   ├── layout/             # Navigation, Footer, PageTransition, SmoothScroll
 │   ├── ui/                 # Reusable: Button, PhotoCard, Lightbox, SectionTitle
 │   ├── home/               # HeroSection, FeaturedGrid
-│   ├── collection/         # Gallery, GalleryFilter
-│   ├── about/              # AboutContent
+│   ├── collection/         # Gallery, GalleryFilter, ParallaxPhoto
+│   ├── about/              # AboutContent, AboutPortrait
 │   └── contact/            # ContactForm
 ├── config/
 │   └── theme.ts            # Colors, transitions, navigation config
@@ -57,6 +58,9 @@ public/
 
 ## Design System
 
+### Concept: "Tidal Memory"
+The site behaves like the ocean: smooth, continuous transitions, progressive appearance/disappearance, no cliché surf effects. Motion serves contemplation.
+
 ### Colors
 | Token        | Hex       | Usage                  |
 |-------------|-----------|------------------------|
@@ -67,16 +71,29 @@ public/
 | hover       | `#1E88A8` | Hover states           |
 | detail      | `#C9A66B` | Accents, active nav    |
 
+### Fonts
+- **Display (headings):** Fraunces (serif, free alternative to Recoleta) — `font-display`
+- **Body:** Inter / system-ui — `font-sans`
+
 ### Tailwind Usage
-Colors are defined as CSS custom properties in `globals.css` via `@theme inline` and used as Tailwind classes: `bg-background`, `text-cta`, `text-detail`, etc.
+Colors and fonts are defined as CSS custom properties in `globals.css` via `@theme inline` and used as Tailwind classes: `bg-background`, `text-cta`, `text-detail`, `font-display`, etc.
 
 ### Animation Presets
-Defined in `src/config/theme.ts` as `transitions` object. Use via Framer Motion's `variants` prop:
-- `page` — page enter/exit
-- `fadeUp` — scroll reveal (upward fade)
-- `fadeIn` — simple opacity fade
-- `scaleIn` — scale + fade
-- `stagger` — stagger children
+Defined in `src/config/theme.ts` as `transitions` object. Two custom easing curves:
+- `tidal` — slow, organic ease `[0.25, 0.1, 0.25, 1]`
+- `drift` — gentle drift `[0.4, 0, 0.2, 1]`
+
+Available presets via Framer Motion's `variants` prop:
+- `page` — page enter/exit (1s)
+- `fadeUp` — scroll reveal, upward fade (1.2s)
+- `fadeIn` — simple opacity fade (1.4s)
+- `scaleIn` — scale + fade (1s)
+- `slideUp` — deeper upward slide (1.4s)
+- `parallaxReveal` — parallax entry with scale (1.6s)
+- `stagger` — stagger children (0.15s intervals)
+
+### Smooth Scroll
+Lenis provides global smooth scrolling (`SmoothScroll` component in layout). CSS classes for Lenis are defined in `globals.css`.
 
 ## Code Conventions
 

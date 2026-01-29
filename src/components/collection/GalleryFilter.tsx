@@ -45,7 +45,7 @@ export function GalleryFilter({ active, onChange }: GalleryFilterProps) {
               key={label}
               onClick={() => onChange(cat)}
               className={clsx(
-                "relative text-[11px] tracking-[0.25em] uppercase transition-all duration-500 pb-3 group",
+                "relative text-[11px] tracking-[0.25em] uppercase transition-all duration-500 pb-3 group cursor-pointer",
                 isActive ? "text-foreground" : "text-foreground/50 hover:text-foreground/90"
               )}
             >

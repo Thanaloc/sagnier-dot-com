@@ -15,7 +15,7 @@ const categories: (PhotoCategory | null)[] = [null, "surf", "ocean", "portrait",
 
 export function GalleryFilter({ active, onChange }: GalleryFilterProps) {
   return (
-    <div className="mb-40 md:mb-52">
+    <div style={{ marginBottom: "10rem" }}>
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"

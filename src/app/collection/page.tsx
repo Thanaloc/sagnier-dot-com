@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageTransition } from "@/components/layout/PageTransition";
-import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Gallery } from "@/components/collection/Gallery";
 import { photos } from "@/data/photos";
 
@@ -11,11 +10,7 @@ export const metadata: Metadata = {
 
 export default function CollectionPage() {
   return (
-    <PageTransition className="pt-28 pb-24 px-6 md:px-12 lg:px-20">
-      <SectionTitle
-        title="Collection"
-        subtitle="Chaque image est un instant suspendu entre ciel et mer"
-      />
+    <PageTransition className="pt-32 pb-24 px-6 md:px-12 lg:px-20">
       <Gallery initialPhotos={photos} />
     </PageTransition>
   );

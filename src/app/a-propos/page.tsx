@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { AboutContent } from "@/components/about/AboutContent";
+import { AboutPortrait } from "@/components/about/AboutPortrait";
 
 export const metadata: Metadata = {
   title: "A propos",
@@ -10,18 +10,9 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <PageTransition className="pt-28 pb-24 px-6 md:px-12 lg:px-20">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        <div className="relative aspect-[3/4] overflow-hidden order-2 lg:order-1">
-          <Image
-            src="/photos/portrait-01.svg"
-            alt="Sagnier - photographe"
-            fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            priority
-          />
-        </div>
+    <PageTransition className="pt-32 pb-24 px-6 md:px-12 lg:px-20">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <AboutPortrait />
         <AboutContent />
       </div>
     </PageTransition>

@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import clsx from "clsx";
 import type { ReactNode } from "react";
 
@@ -11,6 +14,13 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
+const base = (variant: "primary" | "outline") =>
+  clsx(
+    "relative inline-flex items-center justify-center px-10 py-4 text-xs tracking-[0.2em] uppercase overflow-hidden transition-colors duration-500",
+    variant === "primary" && "bg-cta text-white hover:bg-hover",
+    variant === "outline" && "border border-foreground/20 text-foreground hover:border-detail hover:text-detail"
+  );
+
 export function Button({
   children,
   href,
@@ -19,24 +29,33 @@ export function Button({
   className,
   onClick,
 }: ButtonProps) {
-  const base = clsx(
-    "inline-flex items-center justify-center px-8 py-3 text-sm tracking-[0.15em] uppercase transition-all duration-300",
-    variant === "primary" && "bg-cta text-white hover:bg-hover",
-    variant === "outline" && "border border-foreground/30 text-foreground hover:border-detail hover:text-detail",
-    className
-  );
+  const classes = clsx(base(variant), className);
 
   if (href) {
     return (
-      <Link href={href} className={base}>
-        {children}
-      </Link>
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+        className="inline-block"
+      >
+        <Link href={href} className={classes}>
+          {children}
+        </Link>
+      </motion.div>
     );
   }
 
   return (
-    <button type={type} className={base} onClick={onClick}>
+    <motion.button
+      type={type}
+      className={classes}
+      onClick={onClick}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+    >
       {children}
-    </button>
+    </motion.button>
   );
 }

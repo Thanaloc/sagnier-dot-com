@@ -62,6 +62,7 @@ export function AboutContent() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 2.2, ease: tidal }}
+        className="text-center"
         style={{ marginTop: "4rem" }}
       >
         <Button href="/contact" variant="pill">Me contacter</Button>

@@ -32,6 +32,15 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
+@keyframes breathe {
+  0%, 100% {
+    background-color: #0B3C5D;
+  }
+  50% {
+    background-color: #0D4068;
+  }
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);
@@ -42,6 +51,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  animation: breathe 12s ease-in-out infinite;
 }
 
 h1, h2, h3 {

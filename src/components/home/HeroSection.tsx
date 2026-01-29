@@ -2,7 +2,8 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { transitions } from "@/config/theme";
+
+const tidal = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
 
 export function HeroSection() {
   const ref = useRef<HTMLElement>(null);
@@ -21,6 +22,9 @@ export function HeroSection() {
     <section ref={ref} className="relative h-screen overflow-hidden">
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        initial={{ scale: 1.15, filter: "blur(12px)", opacity: 0 }}
+        animate={{ scale: 1, filter: "blur(0px)", opacity: 1 }}
+        transition={{ duration: 2.2, ease: tidal }}
         style={{
           backgroundImage: "url('/photos/surf-01.svg')",
           y: imageY,
@@ -37,51 +41,63 @@ export function HeroSection() {
         style={{ opacity: contentOpacity, y: contentY }}
         className="relative z-10 h-full flex flex-col items-center justify-center px-8 md:px-16"
       >
-        <motion.div
-          initial="initial"
-          animate="animate"
-          variants={transitions.stagger}
-          className="text-center"
-        >
+        <div className="text-center">
           <motion.p
-            variants={transitions.fadeUp}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4, duration: 1, ease: tidal }}
             className="text-xs md:text-sm tracking-[0.5em] uppercase text-detail mb-8 font-light"
           >
             Photographie
           </motion.p>
 
           <motion.h1
-            variants={transitions.fadeUp}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.6, duration: 1.2, ease: tidal }}
             className="text-6xl md:text-8xl lg:text-9xl font-display tracking-[0.06em] text-foreground"
           >
             Ruben Sagnier
           </motion.h1>
 
           <motion.p
-            variants={transitions.fadeUp}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.0, duration: 1, ease: tidal }}
             className="mt-10 text-base md:text-lg text-foreground/40 tracking-[0.08em] max-w-lg mx-auto"
           >
             Capturer l&apos;instant, sublimer la vague
           </motion.p>
-        </motion.div>
+        </div>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 1.5 }}
+        transition={{ delay: 3, duration: 1.5, ease: tidal }}
         className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-3"
-        >
-          <span className="text-[9px] tracking-[0.3em] uppercase text-foreground/25">
+        <div className="flex flex-col items-center gap-3">
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 3, duration: 1 }}
+            className="text-[9px] tracking-[0.3em] uppercase text-foreground/25"
+          >
             Scroll
-          </span>
-          <span className="w-px h-12 bg-gradient-to-b from-foreground/20 to-transparent" />
-        </motion.div>
+          </motion.span>
+          <motion.span
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+            transition={{ delay: 3.2, duration: 1.2, ease: tidal }}
+            className="w-px h-12 bg-gradient-to-b from-foreground/20 to-transparent origin-top"
+          />
+          <motion.span
+            animate={{ y: [0, 16, 0] }}
+            transition={{ delay: 4.5, duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="w-1 h-1 rounded-full bg-foreground/20"
+          />
+        </div>
       </motion.div>
     </section>
   );

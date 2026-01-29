@@ -15,13 +15,13 @@ const categories: (PhotoCategory | null)[] = [null, "surf", "ocean", "portrait",
 
 export function GalleryFilter({ active, onChange }: GalleryFilterProps) {
   return (
-    <div className="mb-32 md:mb-40">
+    <div className="mb-40 md:mb-52">
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-20"
       >
         <p className="text-xs tracking-[0.5em] uppercase text-detail mb-6">Explorer</p>
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-wide text-foreground">

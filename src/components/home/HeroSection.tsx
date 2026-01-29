@@ -54,7 +54,7 @@ export function HeroSection() {
             variants={transitions.fadeUp}
             className="text-6xl md:text-8xl lg:text-9xl font-display tracking-[0.06em] text-foreground"
           >
-            Sagnier
+            Ruben Sagnier
           </motion.h1>
 
           <motion.p

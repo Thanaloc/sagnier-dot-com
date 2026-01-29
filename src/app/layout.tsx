@@ -6,8 +6,8 @@ import { SmoothScroll } from "@/components/layout/SmoothScroll";
 
 export const metadata: Metadata = {
   title: {
-    default: "Sagnier Photographie",
-    template: "%s | Sagnier Photographie",
+    default: "Ruben Sagnier Photographie",
+    template: "%s | Ruben Sagnier Photographie",
   },
   description: "Photographie de surf, ocean et paysages. Capturer l'instant, sublimer la vague.",
   keywords: ["photographie", "surf", "ocean", "plage", "photographe"],

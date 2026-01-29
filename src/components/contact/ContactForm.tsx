@@ -36,7 +36,7 @@ export function ContactForm() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto w-full">
+    <div className="w-full">
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"
@@ -56,7 +56,7 @@ export function ContactForm() {
         viewport={{ once: true }}
         variants={transitions.stagger}
         onSubmit={handleSubmit}
-        className="space-y-12"
+        className="space-y-14"
       >
         <motion.div variants={transitions.slideUp} className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           <FormField label="Nom" name="name" type="text" value={formData.name} onChange={handleChange} required />

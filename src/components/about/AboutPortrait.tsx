@@ -15,7 +15,7 @@ export function AboutPortrait() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
 
   return (
-    <div ref={ref} className="order-2 lg:order-1 lg:sticky lg:top-32">
+    <div ref={ref}>
       <motion.div
         style={{ y, scale }}
         initial={{ opacity: 0 }}
@@ -26,7 +26,7 @@ export function AboutPortrait() {
       >
         <Image
           src="/photos/portrait-01.svg"
-          alt="Sagnier - photographe"
+          alt="Ruben Sagnier - photographe"
           fill
           className="object-cover"
           sizes="(max-width: 1024px) 100vw, 50vw"

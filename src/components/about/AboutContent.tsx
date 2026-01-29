@@ -13,7 +13,7 @@ const fragments = [
 
 export function AboutContent() {
   return (
-    <div className="order-1 lg:order-2 space-y-20 lg:py-8">
+    <div className="space-y-20 text-center">
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"
@@ -22,7 +22,7 @@ export function AboutContent() {
       >
         <p className="text-xs tracking-[0.5em] uppercase text-detail mb-8">A propos</p>
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-wide text-foreground">
-          Sagnier
+          Ruben Sagnier
         </h1>
       </motion.div>
 

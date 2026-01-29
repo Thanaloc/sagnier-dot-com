@@ -13,13 +13,13 @@ export function Navigation() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 mix-blend-difference">
-      <nav className="flex items-center justify-between px-8 py-8 md:px-16 lg:px-24">
+      <nav className="flex items-center justify-between px-8 py-10 md:px-16 md:py-12 lg:px-24">
         <Link
           href="/"
           className="relative z-50 text-xl md:text-2xl font-display tracking-[0.25em] uppercase text-white hover:opacity-70 transition-opacity duration-500"
           onClick={() => setMenuOpen(false)}
         >
-          Sagnier
+          Ruben Sagnier
         </Link>
 
         <DesktopMenu pathname={pathname} />

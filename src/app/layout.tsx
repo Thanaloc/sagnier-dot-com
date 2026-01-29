@@ -31,7 +31,7 @@ export default function RootLayout({
       <body className="antialiased">
         <SmoothScroll />
         <Navigation />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen" style={{ paddingBottom: "6rem" }}>{children}</main>
         <Footer />
       </body>
     </html>

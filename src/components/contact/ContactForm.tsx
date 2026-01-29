@@ -2,8 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { transitions } from "@/config/theme";
 import { Button } from "@/components/ui/Button";
+
+const tidal = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
 
 interface FormData {
   name: string;
@@ -22,6 +23,7 @@ const initialFormData: FormData = {
 export function ContactForm() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [isFocused, setIsFocused] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -38,63 +40,105 @@ export function ContactForm() {
   return (
     <div className="w-full">
       <motion.div
-        variants={transitions.fadeUp}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        className="mb-20"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: tidal }}
+        style={{ marginBottom: "2rem" }}
       >
         <p className="text-xs tracking-[0.5em] uppercase text-detail mb-8">Contact</p>
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-wide text-foreground">
-          Ecrivez-moi
+          Écrivez-moi
         </h1>
       </motion.div>
 
-      <motion.form
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        variants={transitions.stagger}
-        onSubmit={handleSubmit}
-        className="space-y-14"
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.4, ease: tidal }}
+        className="text-base md:text-lg text-foreground/35 leading-loose"
+        style={{ marginBottom: "4rem" }}
       >
-        <motion.div variants={transitions.slideUp} className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-          <FormField label="Nom" name="name" type="text" value={formData.name} onChange={handleChange} required />
-          <FormField label="Email" name="email" type="email" value={formData.email} onChange={handleChange} required />
+        Un projet, une idée, une envie de collaborer — laissez un message, je vous répondrai avec le prochain courant.
+      </motion.p>
+
+      <motion.form
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.7, ease: tidal }}
+        onSubmit={handleSubmit}
+        className="space-y-12"
+      >
+        <motion.div
+          animate={{ opacity: isFocused ? 1 : 0.85 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+            <FormField
+              label="Nom"
+              name="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              required
+            />
+            <FormField
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              required
+            />
+          </div>
         </motion.div>
 
-        <motion.div variants={transitions.slideUp}>
-          <FormField label="Sujet" name="subject" type="text" value={formData.subject} onChange={handleChange} required />
-        </motion.div>
+        <FormField
+          label="Sujet"
+          name="subject"
+          type="text"
+          value={formData.subject}
+          onChange={handleChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          required
+        />
 
-        <motion.div variants={transitions.slideUp}>
-          <label className="block text-[11px] tracking-[0.25em] uppercase text-foreground/30 mb-5">Message</label>
+        <div>
+          <label className="block text-[11px] tracking-[0.25em] uppercase text-foreground/30 mb-5">
+            Message
+          </label>
           <textarea
             name="message"
             value={formData.message}
             onChange={handleChange}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             required
             rows={6}
-            className="w-full bg-transparent border-b border-foreground/10 text-foreground py-4 focus:outline-none focus:border-detail transition-colors duration-500 resize-none"
+            className="w-full bg-transparent border-b border-foreground/10 text-foreground py-4 focus:outline-none focus:border-detail focus:border-b-2 transition-all duration-500 resize-none"
           />
-        </motion.div>
+        </div>
 
-        <motion.div variants={transitions.slideUp} className="pt-8">
+        <div style={{ paddingTop: "1.5rem" }}>
           {status === "sent" ? (
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.8, ease: tidal }}
               className="text-detail tracking-[0.15em] text-sm"
             >
-              Message envoyé. Je vous repondrai rapidement.
+              Message envoyé. Je vous répondrai rapidement.
             </motion.p>
           ) : (
-            <Button type="submit">
+            <Button type="submit" variant="pill">
               {status === "sending" ? "Envoi..." : "Envoyer"}
             </Button>
           )}
-        </motion.div>
+        </div>
       </motion.form>
     </div>
   );
@@ -106,6 +150,8 @@ function FormField({
   type,
   value,
   onChange,
+  onFocus,
+  onBlur,
   required,
 }: {
   label: string;
@@ -113,6 +159,8 @@ function FormField({
   type: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
   required?: boolean;
 }) {
   return (
@@ -126,8 +174,10 @@ function FormField({
         type={type}
         value={value}
         onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
         required={required}
-        className="w-full bg-transparent border-b border-foreground/10 text-foreground py-4 focus:outline-none focus:border-detail transition-colors duration-500"
+        className="w-full bg-transparent border-b border-foreground/10 text-foreground py-4 focus:outline-none focus:border-detail focus:border-b-2 transition-all duration-500"
       />
     </div>
   );

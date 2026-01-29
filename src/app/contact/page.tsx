@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { ContactForm } from "@/components/contact/ContactForm";
 
@@ -10,17 +9,16 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <PageTransition className="pt-40 pb-32 px-8 md:px-16 lg:px-24">
-      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-28 items-center">
-        <div className="relative aspect-[4/5] overflow-hidden hidden lg:block">
-          <Image
-            src="/photos/ocean-01.svg"
-            alt="Ocean"
-            fill
-            className="object-cover"
-            sizes="50vw"
-          />
-        </div>
+    <PageTransition className="relative min-h-screen px-8 md:px-16 lg:px-24" style={{ paddingTop: "10rem", paddingBottom: "6rem" }}>
+      <div
+        className="fixed inset-0 bg-cover bg-center pointer-events-none"
+        style={{
+          backgroundImage: "url('/photos/ocean-02.svg')",
+          opacity: 0.12,
+          filter: "blur(6px) saturate(0.3)",
+        }}
+      />
+      <div className="relative z-10 max-w-2xl mx-auto">
         <ContactForm />
       </div>
     </PageTransition>

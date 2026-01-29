@@ -10,10 +10,12 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <PageTransition className="pt-40 pb-32 px-8 md:px-16 lg:px-24">
-      <div className="max-w-3xl mx-auto">
-        <AboutContent />
-        <div className="mt-24">
+    <PageTransition className="pt-48 md:pt-56 pb-32 px-8 md:px-16 lg:px-24">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:gap-24 xl:gap-32">
+        <div className="lg:w-1/2 xl:w-5/12">
+          <AboutContent />
+        </div>
+        <div className="mt-24 lg:mt-0 lg:w-1/2 xl:w-5/12 xl:ml-auto" style={{ paddingTop: "12rem" }}>
           <AboutPortrait />
         </div>
       </div>

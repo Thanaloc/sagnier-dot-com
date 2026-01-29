@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { navigation } from "@/config/theme";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -15,17 +14,27 @@ export function Footer() {
             Ruben Sagnier
           </Link>
 
-          <ul className="flex items-center gap-8">
-            {navigation.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="text-[11px] tracking-[0.2em] uppercase text-foreground/25 hover:text-foreground/50 transition-colors duration-500"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+          <ul className="flex items-center gap-6">
+            <li>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] tracking-[0.2em] uppercase text-foreground/25 hover:text-foreground/50 transition-colors duration-500"
+              >
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] tracking-[0.2em] uppercase text-foreground/25 hover:text-foreground/50 transition-colors duration-500"
+              >
+                LinkedIn
+              </a>
+            </li>
           </ul>
         </div>
 

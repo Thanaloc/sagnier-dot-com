@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { transitions } from "@/config/theme";
 import { Button } from "@/components/ui/Button";
 import type { Photo } from "@/types/photo";
@@ -12,14 +12,26 @@ interface FeaturedGridProps {
 }
 
 const layouts = [
-  { width: "w-full", align: "" },
-  { width: "w-full md:w-3/5", align: "ml-auto" },
+  { width: "w-full", align: "mx-auto" },
+  { width: "w-full md:w-3/5", align: "md:ml-auto" },
   { width: "w-full md:w-4/5", align: "mx-auto" },
-  { width: "w-full md:w-3/5", align: "mr-auto" },
+  { width: "w-full md:w-3/5", align: "md:mr-auto" },
   { width: "w-full md:w-4/5", align: "mx-auto" },
 ];
 
+function seededRandom(seed: number) {
+  const x = Math.sin(seed + 1) * 10000;
+  return x - Math.floor(x);
+}
+
+const spacingMaxRem = 10;
+
 export function FeaturedGrid({ photos }: FeaturedGridProps) {
+  const spacings = useMemo(
+    () => photos.map((_, i) => Math.round(seededRandom(i) * spacingMaxRem * 4) / 4),
+    [photos]
+  );
+
   return (
     <section className="px-8 py-48 md:px-16 lg:px-24">
       <motion.div
@@ -35,9 +47,14 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
         </h2>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto space-y-28 md:space-y-40">
+      <div className="max-w-7xl mx-auto">
         {photos.map((photo, index) => (
-          <FeaturedPhoto key={photo.id} photo={photo} index={index} />
+          <FeaturedPhoto
+            key={photo.id}
+            photo={photo}
+            index={index}
+            spacingRem={index === 0 ? 0 : spacings[index]}
+          />
         ))}
       </div>
 
@@ -48,7 +65,7 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
         viewport={{ once: true }}
         className="text-center mt-44"
       >
-        <Button href="/collection" variant="outline">
+        <Button href="/collection" variant="pill">
           Toute la collection
         </Button>
       </motion.div>
@@ -56,7 +73,15 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
   );
 }
 
-function FeaturedPhoto({ photo, index }: { photo: Photo; index: number }) {
+function FeaturedPhoto({
+  photo,
+  index,
+  spacingRem,
+}: {
+  photo: Photo;
+  index: number;
+  spacingRem: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -76,6 +101,7 @@ function FeaturedPhoto({ photo, index }: { photo: Photo; index: number }) {
       whileInView="animate"
       viewport={{ once: true, margin: "-50px" }}
       className={`${layout.width} ${layout.align}`}
+      style={{ marginTop: `${spacingRem}rem` }}
     >
       <div className="group relative overflow-hidden">
         <motion.div style={{ y, scale }}>

@@ -44,7 +44,7 @@ function DesktopMenu({ pathname }: { pathname: string }) {
               "relative text-[11px] tracking-[0.25em] uppercase transition-opacity duration-500",
               pathname === item.href
                 ? "text-white opacity-100"
-                : "text-white opacity-50 hover:opacity-100"
+                : "text-white opacity-50 hover:opacity-75"
             )}
           >
             {item.label}

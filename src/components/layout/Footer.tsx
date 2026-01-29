@@ -5,8 +5,8 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="px-8 pt-24 pb-16 md:px-16 lg:px-24">
-      <div className="max-w-7xl mx-auto">
+    <footer className="px-8 pt-32 pb-20 md:px-16 lg:px-24">
+      <div className="w-full">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           <Link
             href="/"

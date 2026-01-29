@@ -33,7 +33,7 @@ export function Button({
 }: ButtonProps) {
   const classes = clsx(
     "inline-flex items-center justify-center text-[11px] tracking-[0.25em] uppercase transition-all duration-500",
-    variant !== "ghost" && "px-10 py-4",
+    variant !== "ghost" && "px-14 py-5",
     styles[variant],
     className
   );

@@ -11,23 +11,31 @@ interface FeaturedGridProps {
   photos: Photo[];
 }
 
+const layouts = [
+  { width: "w-full", align: "" },
+  { width: "w-full md:w-3/5", align: "ml-auto" },
+  { width: "w-full md:w-4/5", align: "mx-auto" },
+  { width: "w-full md:w-3/5", align: "mr-auto" },
+  { width: "w-full md:w-4/5", align: "mx-auto" },
+];
+
 export function FeaturedGrid({ photos }: FeaturedGridProps) {
   return (
-    <section className="px-8 py-40 md:px-16 lg:px-24">
+    <section className="px-8 py-48 md:px-16 lg:px-24">
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-100px" }}
-        className="text-center mb-28"
+        className="text-center mb-40"
       >
-        <p className="text-xs tracking-[0.5em] uppercase text-detail mb-6">Selection</p>
+        <p className="text-xs tracking-[0.5em] uppercase text-detail mb-8">Selection</p>
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-display tracking-wide text-foreground">
           Les images qui racontent
         </h2>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto space-y-16 md:space-y-24">
+      <div className="max-w-7xl mx-auto space-y-28 md:space-y-40">
         {photos.map((photo, index) => (
           <FeaturedPhoto key={photo.id} photo={photo} index={index} />
         ))}
@@ -38,7 +46,7 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="text-center mt-32"
+        className="text-center mt-44"
       >
         <Button href="/collection" variant="outline">
           Toute la collection
@@ -58,7 +66,7 @@ function FeaturedPhoto({ photo, index }: { photo: Photo; index: number }) {
   const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
   const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.98]);
 
-  const isWide = index === 0;
+  const layout = layouts[index % layouts.length];
 
   return (
     <motion.div
@@ -67,7 +75,7 @@ function FeaturedPhoto({ photo, index }: { photo: Photo; index: number }) {
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, margin: "-50px" }}
-      className={isWide ? "w-full" : "w-full md:w-4/5 mx-auto"}
+      className={`${layout.width} ${layout.align}`}
     >
       <div className="group relative overflow-hidden">
         <motion.div style={{ y, scale }}>
@@ -78,7 +86,7 @@ function FeaturedPhoto({ photo, index }: { photo: Photo; index: number }) {
             height={photo.height}
             priority={index < 2}
             className="w-full h-auto object-cover transition-all duration-1000 ease-out group-hover:scale-[1.02]"
-            sizes={isWide ? "100vw" : "(max-width: 768px) 100vw, 80vw"}
+            sizes={index === 0 ? "100vw" : "(max-width: 768px) 100vw, 70vw"}
           />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

@@ -32,13 +32,38 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
+@keyframes breathe {
+  0%, 100% {
+    background-color: #0B3C5D;
+  }
+  33% {
+    background-color: #0E4A75;
+  }
+  66% {
+    background-color: #093350;
+  }
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  animation: breathe 12s ease-in-out infinite;
+}
+
+h1, h2, h3 {
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+p {
+  line-height: 1.9;
 }
 
 ::selection {

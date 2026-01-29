@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
+const tidal = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
+
 export function AboutPortrait() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -11,26 +13,30 @@ export function AboutPortrait() {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [-20, 40]);
 
   return (
-    <div ref={ref} className="order-2 lg:order-1 lg:sticky lg:top-32">
+    <div ref={ref}>
       <motion.div
-        style={{ y, scale }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.4, ease: [0.25, 0.1, 0.25, 1] }}
+        style={{ y }}
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.8, delay: 1.2, ease: tidal }}
         className="relative aspect-[3/4] overflow-hidden"
       >
         <Image
           src="/photos/portrait-01.svg"
-          alt="Sagnier - photographe"
+          alt="Ruben Sagnier — photographe"
           fill
-          className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover brightness-[0.85]"
+          sizes="(max-width: 1024px) 100vw, 45vw"
           priority
+        />
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.04] mix-blend-overlay"
+          style={{
+            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+          }}
         />
       </motion.div>
     </div>

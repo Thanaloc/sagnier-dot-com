@@ -6,8 +6,8 @@ import { SmoothScroll } from "@/components/layout/SmoothScroll";
 
 export const metadata: Metadata = {
   title: {
-    default: "Sagnier Photographie",
-    template: "%s | Sagnier Photographie",
+    default: "Ruben Sagnier Photographie",
+    template: "%s | Ruben Sagnier Photographie",
   },
   description: "Photographie de surf, ocean et paysages. Capturer l'instant, sublimer la vague.",
   keywords: ["photographie", "surf", "ocean", "plage", "photographe"],
@@ -20,10 +20,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="antialiased">
         <SmoothScroll />
         <Navigation />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen" style={{ paddingBottom: "6rem" }}>{children}</main>
         <Footer />
       </body>
     </html>

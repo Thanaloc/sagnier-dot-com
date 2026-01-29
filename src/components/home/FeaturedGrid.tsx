@@ -12,11 +12,11 @@ interface FeaturedGridProps {
 }
 
 const layouts = [
-  { width: "w-full", align: "mx-auto" },
-  { width: "w-full md:w-3/5", align: "md:ml-auto" },
-  { width: "w-full md:w-4/5", align: "mx-auto" },
-  { width: "w-full md:w-3/5", align: "md:mr-auto" },
-  { width: "w-full md:w-4/5", align: "mx-auto" },
+  { width: "100%", justify: "center" as const },
+  { width: "60%", justify: "flex-end" as const },
+  { width: "80%", justify: "center" as const },
+  { width: "60%", justify: "flex-start" as const },
+  { width: "80%", justify: "center" as const },
 ];
 
 function seededRandom(seed: number) {
@@ -24,7 +24,7 @@ function seededRandom(seed: number) {
   return x - Math.floor(x);
 }
 
-const spacingMaxRem = 10;
+const spacingMaxRem = 6;
 
 export function FeaturedGrid({ photos }: FeaturedGridProps) {
   const spacings = useMemo(
@@ -94,15 +94,18 @@ function FeaturedPhoto({
   const layout = layouts[index % layouts.length];
 
   return (
-    <motion.div
-      ref={ref}
-      variants={transitions.parallaxReveal}
-      initial="initial"
-      whileInView="animate"
-      viewport={{ once: true, margin: "-50px" }}
-      className={`${layout.width} ${layout.align}`}
-      style={{ marginTop: `${spacingRem}rem` }}
+    <div
+      className="flex w-full"
+      style={{ justifyContent: layout.justify, marginTop: `${spacingRem}rem` }}
     >
+      <motion.div
+        ref={ref}
+        variants={transitions.parallaxReveal}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, margin: "-50px" }}
+        style={{ width: layout.width }}
+      >
       <div className="group relative overflow-hidden">
         <motion.div style={{ y, scale }}>
           <Image
@@ -118,5 +121,6 @@ function FeaturedPhoto({
         <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
       </div>
     </motion.div>
+    </div>
   );
 }

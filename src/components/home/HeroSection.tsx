@@ -35,7 +35,7 @@ export function HeroSection() {
 
       <motion.div
         style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-10 h-full flex flex-col items-center justify-center px-6"
+        className="relative z-10 h-full flex flex-col items-center justify-center px-8 md:px-16"
       >
         <motion.div
           initial="initial"
@@ -45,21 +45,21 @@ export function HeroSection() {
         >
           <motion.p
             variants={transitions.fadeUp}
-            className="text-xs md:text-sm tracking-[0.4em] uppercase text-detail mb-6 font-light"
+            className="text-xs md:text-sm tracking-[0.5em] uppercase text-detail mb-8 font-light"
           >
             Photographie
           </motion.p>
 
           <motion.h1
             variants={transitions.fadeUp}
-            className="text-6xl md:text-8xl lg:text-9xl font-display font-light tracking-[0.08em] uppercase text-foreground"
+            className="text-6xl md:text-8xl lg:text-9xl font-display tracking-[0.06em] text-foreground"
           >
             Sagnier
           </motion.h1>
 
           <motion.p
             variants={transitions.fadeUp}
-            className="mt-8 text-base md:text-lg text-foreground/50 tracking-wider max-w-md mx-auto font-light"
+            className="mt-10 text-base md:text-lg text-foreground/40 tracking-[0.08em] max-w-lg mx-auto"
           >
             Capturer l&apos;instant, sublimer la vague
           </motion.p>
@@ -69,14 +69,19 @@ export function HeroSection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
+        transition={{ delay: 2.5, duration: 1.5 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-16 bg-gradient-to-b from-transparent via-foreground/30 to-transparent"
-        />
+          className="flex flex-col items-center gap-3"
+        >
+          <span className="text-[9px] tracking-[0.3em] uppercase text-foreground/25">
+            Scroll
+          </span>
+          <span className="w-px h-12 bg-gradient-to-b from-foreground/20 to-transparent" />
+        </motion.div>
       </motion.div>
     </section>
   );

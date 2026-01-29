@@ -42,13 +42,12 @@ export function ContactForm() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="mb-16"
+        className="mb-20"
       >
-        <p className="text-xs tracking-[0.4em] uppercase text-detail mb-6">Contact</p>
-        <h1 className="text-4xl md:text-6xl font-display font-light tracking-wide text-foreground">
+        <p className="text-xs tracking-[0.5em] uppercase text-detail mb-8">Contact</p>
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-wide text-foreground">
           Ecrivez-moi
         </h1>
-        <div className="mt-6 w-12 h-px bg-detail/40" />
       </motion.div>
 
       <motion.form
@@ -57,9 +56,9 @@ export function ContactForm() {
         viewport={{ once: true }}
         variants={transitions.stagger}
         onSubmit={handleSubmit}
-        className="space-y-10"
+        className="space-y-12"
       >
-        <motion.div variants={transitions.slideUp} className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <motion.div variants={transitions.slideUp} className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           <FormField label="Nom" name="name" type="text" value={formData.name} onChange={handleChange} required />
           <FormField label="Email" name="email" type="email" value={formData.email} onChange={handleChange} required />
         </motion.div>
@@ -69,24 +68,24 @@ export function ContactForm() {
         </motion.div>
 
         <motion.div variants={transitions.slideUp}>
-          <label className="block text-xs tracking-[0.2em] uppercase text-foreground/40 mb-4">Message</label>
+          <label className="block text-[11px] tracking-[0.25em] uppercase text-foreground/30 mb-5">Message</label>
           <textarea
             name="message"
             value={formData.message}
             onChange={handleChange}
             required
             rows={6}
-            className="w-full bg-transparent border-b border-foreground/15 text-foreground py-3 focus:outline-none focus:border-detail transition-colors duration-500 resize-none"
+            className="w-full bg-transparent border-b border-foreground/10 text-foreground py-4 focus:outline-none focus:border-detail transition-colors duration-500 resize-none"
           />
         </motion.div>
 
-        <motion.div variants={transitions.slideUp} className="pt-6">
+        <motion.div variants={transitions.slideUp} className="pt-8">
           {status === "sent" ? (
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-detail tracking-wider text-sm"
+              className="text-detail tracking-[0.15em] text-sm"
             >
               Message envoyé. Je vous repondrai rapidement.
             </motion.p>
@@ -118,7 +117,7 @@ function FormField({
 }) {
   return (
     <div>
-      <label htmlFor={name} className="block text-xs tracking-[0.2em] uppercase text-foreground/40 mb-4">
+      <label htmlFor={name} className="block text-[11px] tracking-[0.25em] uppercase text-foreground/30 mb-5">
         {label}
       </label>
       <input
@@ -128,7 +127,7 @@ function FormField({
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full bg-transparent border-b border-foreground/15 text-foreground py-3 focus:outline-none focus:border-detail transition-colors duration-500"
+        className="w-full bg-transparent border-b border-foreground/10 text-foreground py-4 focus:outline-none focus:border-detail transition-colors duration-500"
       />
     </div>
   );

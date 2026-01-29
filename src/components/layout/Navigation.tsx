@@ -12,11 +12,11 @@ export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <nav className="flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
+    <header className="fixed top-0 left-0 right-0 z-50 mix-blend-difference">
+      <nav className="flex items-center justify-between px-8 py-8 md:px-16 lg:px-24">
         <Link
           href="/"
-          className="relative z-50 text-lg font-display font-light tracking-[0.3em] uppercase text-foreground hover:text-detail transition-colors duration-500"
+          className="relative z-50 text-xl md:text-2xl font-display tracking-[0.25em] uppercase text-white hover:opacity-70 transition-opacity duration-500"
           onClick={() => setMenuOpen(false)}
         >
           Sagnier
@@ -35,23 +35,23 @@ export function Navigation() {
 
 function DesktopMenu({ pathname }: { pathname: string }) {
   return (
-    <ul className="hidden md:flex items-center gap-10">
+    <ul className="hidden md:flex items-center gap-12">
       {navigation.map((item) => (
         <li key={item.href}>
           <Link
             href={item.href}
             className={clsx(
-              "relative text-xs tracking-[0.2em] uppercase transition-colors duration-500",
+              "relative text-[11px] tracking-[0.25em] uppercase transition-opacity duration-500",
               pathname === item.href
-                ? "text-detail"
-                : "text-foreground/50 hover:text-foreground"
+                ? "text-white opacity-100"
+                : "text-white opacity-50 hover:opacity-100"
             )}
           >
             {item.label}
             {pathname === item.href && (
               <motion.span
-                layoutId="nav-underline"
-                className="absolute -bottom-1.5 left-0 right-0 h-px bg-detail"
+                layoutId="nav-active"
+                className="absolute -bottom-2 left-0 right-0 h-[2px] bg-detail rounded-full"
                 transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
               />
             )}
@@ -66,22 +66,22 @@ function MobileMenuButton({ open, toggle }: { open: boolean; toggle: () => void 
   return (
     <button
       onClick={toggle}
-      className="relative z-50 flex flex-col gap-1.5 md:hidden w-7 h-5 justify-center"
+      className="relative z-50 flex flex-col gap-2 md:hidden w-8 h-6 justify-center"
       aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
     >
       <motion.span
-        animate={open ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
-        className="block w-full h-px bg-foreground origin-center"
+        animate={open ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+        className="block w-full h-[1.5px] bg-white origin-center"
         transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       />
       <motion.span
-        animate={open ? { opacity: 0 } : { opacity: 1 }}
-        className="block w-full h-px bg-foreground"
+        animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+        className="block w-full h-[1.5px] bg-white origin-right"
         transition={{ duration: 0.3 }}
       />
       <motion.span
-        animate={open ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
-        className="block w-full h-px bg-foreground origin-center"
+        animate={open ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+        className="block w-full h-[1.5px] bg-white origin-center"
         transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       />
     </button>
@@ -105,7 +105,7 @@ function MobileMenu({ pathname, onClose }: { pathname: string; onClose: () => vo
           visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
           hidden: { transition: { staggerChildren: 0.06, staggerDirection: -1 } },
         }}
-        className="flex flex-col items-center gap-10"
+        className="flex flex-col items-center gap-14"
       >
         {navigation.map((item) => (
           <motion.li
@@ -120,10 +120,10 @@ function MobileMenu({ pathname, onClose }: { pathname: string; onClose: () => vo
               href={item.href}
               onClick={onClose}
               className={clsx(
-                "text-2xl font-display font-light tracking-[0.2em] uppercase transition-colors duration-500",
+                "text-3xl md:text-4xl font-display tracking-[0.15em] uppercase transition-colors duration-500",
                 pathname === item.href
                   ? "text-detail"
-                  : "text-foreground/60 hover:text-foreground"
+                  : "text-foreground/50 hover:text-foreground"
               )}
             >
               {item.label}

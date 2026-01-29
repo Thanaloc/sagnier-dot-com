@@ -13,22 +13,21 @@ interface FeaturedGridProps {
 
 export function FeaturedGrid({ photos }: FeaturedGridProps) {
   return (
-    <section className="px-6 py-32 md:px-12 lg:px-20">
+    <section className="px-8 py-40 md:px-16 lg:px-24">
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-100px" }}
-        className="text-center mb-20"
+        className="text-center mb-28"
       >
-        <p className="text-xs tracking-[0.4em] uppercase text-detail mb-4">Selection</p>
-        <h2 className="text-3xl md:text-5xl font-display font-light tracking-wide text-foreground">
+        <p className="text-xs tracking-[0.5em] uppercase text-detail mb-6">Selection</p>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display tracking-wide text-foreground">
           Les images qui racontent
         </h2>
-        <div className="mt-8 w-16 h-px bg-detail/40 mx-auto" />
       </motion.div>
 
-      <div className="max-w-7xl mx-auto space-y-8 md:space-y-12">
+      <div className="max-w-7xl mx-auto space-y-16 md:space-y-24">
         {photos.map((photo, index) => (
           <FeaturedPhoto key={photo.id} photo={photo} index={index} />
         ))}
@@ -39,7 +38,7 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="text-center mt-24"
+        className="text-center mt-32"
       >
         <Button href="/collection" variant="outline">
           Toute la collection

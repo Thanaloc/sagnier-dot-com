@@ -15,19 +15,18 @@ const categories: (PhotoCategory | null)[] = [null, "surf", "ocean", "portrait",
 
 export function GalleryFilter({ active, onChange }: GalleryFilterProps) {
   return (
-    <div className="mb-24 md:mb-32">
+    <div className="mb-32 md:mb-40">
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="text-center mb-12"
+        className="text-center mb-16"
       >
-        <p className="text-xs tracking-[0.4em] uppercase text-detail mb-4">Explorer</p>
-        <h1 className="text-4xl md:text-6xl font-display font-light tracking-wide text-foreground">
+        <p className="text-xs tracking-[0.5em] uppercase text-detail mb-6">Explorer</p>
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-wide text-foreground">
           Collection
         </h1>
-        <div className="mt-6 w-12 h-px bg-detail/40 mx-auto" />
       </motion.div>
 
       <motion.div
@@ -35,7 +34,7 @@ export function GalleryFilter({ active, onChange }: GalleryFilterProps) {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="flex flex-wrap items-center justify-center gap-6 md:gap-8"
+        className="flex flex-wrap items-center justify-center gap-8 md:gap-10"
       >
         {categories.map((cat) => {
           const label = cat ? categoryLabels[cat] : "Tout";
@@ -46,15 +45,15 @@ export function GalleryFilter({ active, onChange }: GalleryFilterProps) {
               key={label}
               onClick={() => onChange(cat)}
               className={clsx(
-                "relative text-xs tracking-[0.2em] uppercase transition-colors duration-500 pb-2",
-                isActive ? "text-detail" : "text-foreground/40 hover:text-foreground/70"
+                "relative text-[11px] tracking-[0.25em] uppercase transition-all duration-500 pb-3",
+                isActive ? "text-foreground" : "text-foreground/30 hover:text-foreground/60"
               )}
             >
               {label}
               {isActive && (
                 <motion.span
-                  layoutId="filter-underline"
-                  className="absolute bottom-0 left-0 right-0 h-px bg-detail"
+                  layoutId="filter-active"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-detail rounded-full"
                   transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
                 />
               )}

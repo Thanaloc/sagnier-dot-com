@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <PageTransition className="min-h-screen flex flex-col justify-center pt-20 pb-24 px-6 md:px-12 lg:px-20">
+    <PageTransition className="min-h-screen flex flex-col justify-center pt-28 pb-32 px-8 md:px-16 lg:px-24">
       <ContactForm />
     </PageTransition>
   );

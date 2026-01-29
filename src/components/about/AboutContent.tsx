@@ -13,21 +13,20 @@ const fragments = [
 
 export function AboutContent() {
   return (
-    <div className="order-1 lg:order-2 space-y-16">
+    <div className="order-1 lg:order-2 space-y-20 lg:py-8">
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-80px" }}
       >
-        <p className="text-xs tracking-[0.4em] uppercase text-detail mb-6">A propos</p>
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-light tracking-wide text-foreground">
+        <p className="text-xs tracking-[0.5em] uppercase text-detail mb-8">A propos</p>
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-wide text-foreground">
           Sagnier
         </h1>
-        <div className="mt-6 w-12 h-px bg-detail/40" />
       </motion.div>
 
-      <div className="space-y-10">
+      <div className="space-y-12">
         {fragments.map((text, i) => (
           <motion.p
             key={i}
@@ -37,8 +36,8 @@ export function AboutContent() {
             viewport={{ once: true, margin: "-40px" }}
             className={
               i === 0
-                ? "text-xl md:text-2xl text-foreground/90 font-light leading-relaxed"
-                : "text-base md:text-lg text-foreground/60 leading-relaxed font-light"
+                ? "text-xl md:text-2xl text-foreground/80 leading-relaxed"
+                : "text-base md:text-lg text-foreground/45 leading-loose"
             }
           >
             {text}
@@ -51,6 +50,7 @@ export function AboutContent() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
+        className="pt-4"
       >
         <Button href="/contact">Me contacter</Button>
       </motion.div>

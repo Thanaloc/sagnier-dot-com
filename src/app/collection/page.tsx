@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CollectionPage() {
   return (
-    <PageTransition className="pt-32 pb-24 px-6 md:px-12 lg:px-20">
+    <PageTransition className="pt-40 pb-32 px-8 md:px-16 lg:px-24">
       <Gallery initialPhotos={photos} />
     </PageTransition>
   );

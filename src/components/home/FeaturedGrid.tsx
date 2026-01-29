@@ -13,10 +13,10 @@ interface FeaturedGridProps {
 
 const layouts = [
   { width: "100%", justify: "center" as const },
-  { width: "60%", justify: "flex-end" as const },
-  { width: "80%", justify: "center" as const },
-  { width: "60%", justify: "flex-start" as const },
-  { width: "80%", justify: "center" as const },
+  { width: "75%", justify: "flex-end" as const },
+  { width: "90%", justify: "center" as const },
+  { width: "70%", justify: "flex-start" as const },
+  { width: "85%", justify: "flex-end" as const },
 ];
 
 function seededRandom(seed: number) {
@@ -24,7 +24,7 @@ function seededRandom(seed: number) {
   return x - Math.floor(x);
 }
 
-const spacingMaxRem = 6;
+const spacingMaxRem = 2.5;
 
 export function FeaturedGrid({ photos }: FeaturedGridProps) {
   const spacings = useMemo(

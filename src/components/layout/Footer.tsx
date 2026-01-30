@@ -4,7 +4,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="px-8 pt-32 pb-20 md:px-16 lg:px-24">
+    <footer className="pt-32 pb-20" style={{ paddingLeft: "2rem", paddingRight: "2rem" }}>
       <div className="w-full">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           <Link

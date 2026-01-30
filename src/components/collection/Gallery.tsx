@@ -122,7 +122,7 @@ function CategorySection({
   isFirst: boolean;
 }) {
   return (
-    <section style={isFirst ? undefined : { paddingTop: "8rem" }}>
+    <section style={isFirst ? undefined : { paddingTop: "5rem" }}>
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"

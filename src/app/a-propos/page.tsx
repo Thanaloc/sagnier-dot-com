@@ -4,7 +4,7 @@ import { AboutContent } from "@/components/about/AboutContent";
 import { AboutPortrait } from "@/components/about/AboutPortrait";
 import { fetchSiteSettings } from "@/sanity/fetch";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "A propos",

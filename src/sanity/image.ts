@@ -1,8 +1,8 @@
 import imageUrlBuilder from "@sanity/image-url";
 import { getClient } from "./client";
-import type { SanityImageSource } from "@sanity/image-url";
 
-export function urlFor(source: SanityImageSource) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function urlFor(source: any) {
   const client = getClient();
   if (!client) throw new Error("Sanity client not configured");
   return imageUrlBuilder(client).image(source);

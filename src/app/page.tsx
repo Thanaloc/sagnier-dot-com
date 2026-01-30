@@ -1,13 +1,19 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturedGrid } from "@/components/home/FeaturedGrid";
-import { fetchFeaturedPhotos } from "@/sanity/fetch";
+import { fetchFeaturedPhotos, fetchSiteSettings } from "@/sanity/fetch";
 
 export default async function HomePage() {
-  const featured = await fetchFeaturedPhotos();
+  const [featured, settings] = await Promise.all([
+    fetchFeaturedPhotos(),
+    fetchSiteSettings(),
+  ]);
 
   return (
     <>
-      <HeroSection />
+      <HeroSection
+        heroImageUrl={settings?.heroImageUrl ?? undefined}
+        heroSubtitle={settings?.heroSubtitle ?? undefined}
+      />
       <FeaturedGrid photos={featured} />
     </>
   );

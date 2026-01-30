@@ -1,7 +1,15 @@
 import { getClient } from "./client";
 import { urlFor } from "./image";
-import { allPhotosQuery, featuredPhotosQuery } from "./queries";
+import { allPhotosQuery, featuredPhotosQuery, siteSettingsQuery } from "./queries";
 import type { Photo, SanityPhoto } from "@/types/photo";
+
+export interface SiteSettings {
+  heroImageUrl: string | null;
+  heroSubtitle: string | null;
+  aboutPortraitUrl: string | null;
+  aboutTexts: string[] | null;
+  contactBackgroundUrl: string | null;
+}
 
 function sanityToPhoto(sp: SanityPhoto): Photo {
   const width = sp.dimensions?.width ?? 1600;
@@ -9,7 +17,7 @@ function sanityToPhoto(sp: SanityPhoto): Photo {
 
   return {
     id: sp._id,
-    src: urlFor(sp.image).width(1600).quality(85).auto("format").url(),
+    src: urlFor(sp.image).width(2400).quality(95).auto("format").url(),
     alt: sp.alt,
     width,
     height,
@@ -54,4 +62,19 @@ export async function fetchFeaturedPhotos(): Promise<Photo[]> {
 
   const { getFeaturedPhotos } = await import("@/data/photos");
   return getFeaturedPhotos();
+}
+
+export async function fetchSiteSettings(): Promise<SiteSettings | null> {
+  const client = getClient();
+
+  if (client) {
+    try {
+      const settings = await client.fetch<SiteSettings | null>(siteSettingsQuery);
+      if (settings) return settings;
+    } catch {
+      console.warn("Sanity settings fetch failed, using defaults");
+    }
+  }
+
+  return null;
 }

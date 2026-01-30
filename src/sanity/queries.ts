@@ -30,6 +30,19 @@ export const featuredPhotosQuery = groq`
   }
 `;
 
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings"][0] {
+    heroImage,
+    heroSubtitle,
+    aboutPortrait,
+    aboutTexts,
+    contactBackground,
+    "heroImageUrl": heroImage.asset->url,
+    "aboutPortraitUrl": aboutPortrait.asset->url,
+    "contactBackgroundUrl": contactBackground.asset->url
+  }
+`;
+
 export const photosByCategoryQuery = groq`
   *[_type == "photo" && category == $category] | order(order asc) {
     _id,

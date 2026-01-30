@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Photo, PhotoCategory } from "@/types/photo";
 import { categoryLabels } from "@/types/photo";
-import { getPhotosByCategory } from "@/data/photos";
 import { GalleryFilter } from "./GalleryFilter";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { transitions } from "@/config/theme";
@@ -20,10 +19,12 @@ export function Gallery({ initialPhotos }: GalleryProps) {
   const [activeCategory, setActiveCategory] = useState<PhotoCategory | null>(null);
   const [lightboxPhoto, setLightboxPhoto] = useState<Photo | null>(null);
 
-  const filteredPhotos = useMemo(
-    () => getPhotosByCategory(activeCategory),
-    [activeCategory]
-  );
+  const filteredPhotos = useMemo(() => {
+    if (!activeCategory) return [...initialPhotos].sort((a, b) => a.order - b.order);
+    return initialPhotos
+      .filter((p) => p.category === activeCategory)
+      .sort((a, b) => a.order - b.order);
+  }, [activeCategory, initialPhotos]);
 
   const groupedPhotos = useMemo(() => {
     if (activeCategory) return null;

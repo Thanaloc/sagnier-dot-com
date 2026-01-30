@@ -1,9 +1,9 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturedGrid } from "@/components/home/FeaturedGrid";
-import { getFeaturedPhotos } from "@/data/photos";
+import { fetchFeaturedPhotos } from "@/sanity/fetch";
 
-export default function HomePage() {
-  const featured = getFeaturedPhotos();
+export default async function HomePage() {
+  const featured = await fetchFeaturedPhotos();
 
   return (
     <>

@@ -66,7 +66,7 @@ export function Gallery({ initialPhotos }: GalleryProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
-            className="space-y-28 md:space-y-40"
+            className="space-y-40 md:space-y-56"
           >
             {categoryOrder.map((cat) => {
               const catPhotos = groupedPhotos[cat];
@@ -123,7 +123,7 @@ function CategorySection({
         viewport={{ once: true, margin: "-80px" }}
         className="mb-12 md:mb-16"
       >
-        <p className="text-xs tracking-[0.4em] uppercase text-detail/60 mb-3">
+        <p className="text-sm md:text-base tracking-[0.4em] uppercase text-detail/60 mb-3">
           {categoryLabels[category]}
         </p>
         <div className="w-12 h-px bg-foreground/10" />

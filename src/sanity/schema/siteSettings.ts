@@ -40,6 +40,20 @@ export const siteSettings = defineType({
       description: "La photo de fond en filigrane sur la page Contact",
       options: { hotspot: true },
     }),
+    defineField({
+      name: "instagramUrl",
+      title: "Lien Instagram",
+      type: "url",
+      description: "URL complète du profil Instagram",
+      initialValue: "https://instagram.com",
+    }),
+    defineField({
+      name: "linkedinUrl",
+      title: "Lien LinkedIn",
+      type: "url",
+      description: "URL complète du profil LinkedIn",
+      initialValue: "https://linkedin.com",
+    }),
   ],
   preview: {
     prepare() {

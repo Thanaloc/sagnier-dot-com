@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
+import { fetchSiteSettings } from "@/sanity/fetch";
 
 export const metadata: Metadata = {
   title: {
@@ -13,14 +14,17 @@ export const metadata: Metadata = {
   keywords: ["photographie", "surf", "ocean", "plage", "photographe"],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await fetchSiteSettings();
+
   return (
     <html lang="fr">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -32,7 +36,10 @@ export default function RootLayout({
         <SmoothScroll />
         <Navigation />
         <main className="min-h-screen" style={{ paddingBottom: "6rem" }}>{children}</main>
-        <Footer />
+        <Footer
+          instagramUrl={settings?.instagramUrl ?? undefined}
+          linkedinUrl={settings?.linkedinUrl ?? undefined}
+        />
       </body>
     </html>
   );

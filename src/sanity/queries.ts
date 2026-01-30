@@ -39,7 +39,9 @@ export const siteSettingsQuery = groq`
     contactBackground,
     "heroImageUrl": heroImage.asset->url,
     "aboutPortraitUrl": aboutPortrait.asset->url,
-    "contactBackgroundUrl": contactBackground.asset->url
+    "contactBackgroundUrl": contactBackground.asset->url,
+    instagramUrl,
+    linkedinUrl
   }
 `;
 

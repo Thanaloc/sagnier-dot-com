@@ -33,7 +33,7 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
   );
 
   return (
-    <section className="px-8 py-48 md:px-16 lg:px-24">
+    <section style={{ padding: "12rem 1rem 12rem 1rem" }}>
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"

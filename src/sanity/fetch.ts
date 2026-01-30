@@ -9,6 +9,8 @@ export interface SiteSettings {
   aboutPortraitUrl: string | null;
   aboutTexts: string[] | null;
   contactBackgroundUrl: string | null;
+  instagramUrl: string | null;
+  linkedinUrl: string | null;
 }
 
 function sanityToPhoto(sp: SanityPhoto): Photo {

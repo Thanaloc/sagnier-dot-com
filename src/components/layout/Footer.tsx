@@ -1,6 +1,11 @@
 import Link from "next/link";
 
-export function Footer() {
+interface FooterProps {
+  instagramUrl?: string;
+  linkedinUrl?: string;
+}
+
+export function Footer({ instagramUrl, linkedinUrl }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
@@ -17,7 +22,7 @@ export function Footer() {
           <ul className="flex items-center gap-6">
             <li>
               <a
-                href="https://instagram.com"
+                href={instagramUrl ?? "https://instagram.com"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] tracking-[0.2em] uppercase text-foreground/25 hover:text-foreground/50 transition-colors duration-500"
@@ -27,7 +32,7 @@ export function Footer() {
             </li>
             <li>
               <a
-                href="https://linkedin.com"
+                href={linkedinUrl ?? "https://linkedin.com"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] tracking-[0.2em] uppercase text-foreground/25 hover:text-foreground/50 transition-colors duration-500"

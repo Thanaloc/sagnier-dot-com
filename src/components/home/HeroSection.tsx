@@ -5,7 +5,12 @@ import { useRef } from "react";
 
 const tidal = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
 
-export function HeroSection() {
+interface HeroSectionProps {
+  heroImageUrl?: string;
+  heroSubtitle?: string;
+}
+
+export function HeroSection({ heroImageUrl, heroSubtitle }: HeroSectionProps) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -14,9 +19,11 @@ export function HeroSection() {
 
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.3, 0.7]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0.75]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.4], [0, -60]);
+
+  const bgImage = heroImageUrl ?? "/photos/surf-01.svg";
 
   return (
     <section ref={ref} className="relative h-screen overflow-hidden">
@@ -26,7 +33,7 @@ export function HeroSection() {
         animate={{ scale: 1, filter: "blur(0px)", opacity: 1 }}
         transition={{ duration: 2.2, ease: tidal }}
         style={{
-          backgroundImage: "url('/photos/surf-01.svg')",
+          backgroundImage: `url('${bgImage}')`,
           y: imageY,
           scale: imageScale,
         }}
@@ -34,6 +41,12 @@ export function HeroSection() {
       <motion.div
         className="absolute inset-0 bg-background"
         style={{ opacity: overlayOpacity }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,0,0,0.35) 0%, transparent 100%)",
+        }}
       />
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
 
@@ -66,7 +79,7 @@ export function HeroSection() {
             transition={{ delay: 2.0, duration: 1, ease: tidal }}
             className="mt-10 text-base md:text-lg text-foreground/40 tracking-[0.08em] max-w-lg mx-auto"
           >
-            Capturer l&apos;instant, sublimer la vague
+            {heroSubtitle ?? "Capturer l\u2019instant, sublimer la vague"}
           </motion.p>
         </div>
       </motion.div>

@@ -6,7 +6,11 @@ import { useRef } from "react";
 
 const tidal = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
 
-export function AboutPortrait() {
+interface AboutPortraitProps {
+  portraitUrl?: string;
+}
+
+export function AboutPortrait({ portraitUrl }: AboutPortraitProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -14,6 +18,7 @@ export function AboutPortrait() {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [-20, 40]);
+  const src = portraitUrl ?? "/photos/portrait-01.svg";
 
   return (
     <div ref={ref}>
@@ -25,7 +30,7 @@ export function AboutPortrait() {
         className="relative aspect-[3/4] overflow-hidden"
       >
         <Image
-          src="/photos/portrait-01.svg"
+          src={src}
           alt="Ruben Sagnier — photographe"
           fill
           className="object-cover brightness-[0.85]"

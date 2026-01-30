@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Photo, PhotoCategory } from "@/types/photo";
 import { categoryLabels } from "@/types/photo";
-import { getPhotosByCategory } from "@/data/photos";
 import { GalleryFilter } from "./GalleryFilter";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { transitions } from "@/config/theme";
@@ -20,10 +19,12 @@ export function Gallery({ initialPhotos }: GalleryProps) {
   const [activeCategory, setActiveCategory] = useState<PhotoCategory | null>(null);
   const [lightboxPhoto, setLightboxPhoto] = useState<Photo | null>(null);
 
-  const filteredPhotos = useMemo(
-    () => getPhotosByCategory(activeCategory),
-    [activeCategory]
-  );
+  const filteredPhotos = useMemo(() => {
+    if (!activeCategory) return [...initialPhotos].sort((a, b) => a.order - b.order);
+    return initialPhotos
+      .filter((p) => p.category === activeCategory)
+      .sort((a, b) => a.order - b.order);
+  }, [activeCategory, initialPhotos]);
 
   const groupedPhotos = useMemo(() => {
     if (activeCategory) return null;
@@ -65,20 +66,25 @@ export function Gallery({ initialPhotos }: GalleryProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
-            className="space-y-28 md:space-y-40"
           >
-            {categoryOrder.map((cat) => {
-              const catPhotos = groupedPhotos[cat];
-              if (!catPhotos) return null;
-              return (
-                <CategorySection
-                  key={cat}
-                  category={cat}
-                  photos={catPhotos}
-                  onPhotoClick={setLightboxPhoto}
-                />
-              );
-            })}
+            {(() => {
+              let sectionIndex = 0;
+              return categoryOrder.map((cat) => {
+                const catPhotos = groupedPhotos[cat];
+                if (!catPhotos) return null;
+                const isFirst = sectionIndex === 0;
+                sectionIndex++;
+                return (
+                  <CategorySection
+                    key={cat}
+                    category={cat}
+                    photos={catPhotos}
+                    onPhotoClick={setLightboxPhoto}
+                    isFirst={isFirst}
+                  />
+                );
+              });
+            })()}
           </motion.div>
         ) : (
           <motion.div
@@ -108,13 +114,15 @@ function CategorySection({
   category,
   photos,
   onPhotoClick,
+  isFirst,
 }: {
   category: PhotoCategory;
   photos: Photo[];
   onPhotoClick: (photo: Photo) => void;
+  isFirst: boolean;
 }) {
   return (
-    <section>
+    <section style={isFirst ? undefined : { paddingTop: "5rem" }}>
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"
@@ -122,7 +130,7 @@ function CategorySection({
         viewport={{ once: true, margin: "-80px" }}
         className="mb-12 md:mb-16"
       >
-        <p className="text-xs tracking-[0.4em] uppercase text-detail/60 mb-3">
+        <p className="text-sm md:text-base tracking-[0.4em] uppercase text-detail/60 mb-3">
           {categoryLabels[category]}
         </p>
         <div className="w-12 h-px bg-foreground/10" />

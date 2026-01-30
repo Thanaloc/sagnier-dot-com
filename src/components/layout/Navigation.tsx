@@ -12,8 +12,20 @@ export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 mix-blend-difference">
-      <nav className="flex items-center justify-end px-8 py-10 md:px-16 md:py-12 lg:px-24" style={{ paddingRight: "2rem" }}>
+    <header className="fixed top-0 left-0 right-0" style={{ zIndex: 50 }}>
+      {!menuOpen && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)",
+            height: "120%",
+          }}
+        />
+      )}
+      <nav
+        className="relative flex items-center justify-end"
+        style={{ padding: "2.5rem 2rem 2.5rem 2rem", zIndex: 60 }}
+      >
         <DesktopMenu pathname={pathname} />
         <MobileMenuButton open={menuOpen} toggle={() => setMenuOpen((v) => !v)} />
       </nav>
@@ -72,7 +84,8 @@ function MobileMenuButton({ open, toggle }: { open: boolean; toggle: () => void 
   return (
     <button
       onClick={toggle}
-      className="relative z-50 flex flex-col gap-2 md:hidden w-8 h-6 justify-center"
+      className="flex flex-col gap-2 md:hidden w-8 h-6 justify-center"
+      style={{ position: "relative", zIndex: 70 }}
       aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
     >
       <motion.span
@@ -101,7 +114,8 @@ function MobileMenu({ pathname, onClose }: { pathname: string; onClose: () => vo
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-      className="fixed inset-0 z-40 bg-background flex items-center justify-center"
+      className="fixed inset-0 flex items-center justify-center"
+      style={{ zIndex: 55, backgroundColor: "#0B3C5D" }}
     >
       <motion.ul
         initial="hidden"

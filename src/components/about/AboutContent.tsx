@@ -6,15 +6,19 @@ import { Button } from "@/components/ui/Button";
 
 const tidal = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
 
-const fragments = [
-  "Passionné par l'océan et le surf depuis toujours.",
-  "Je capture ces instants éphémères où la lumière rencontre la vague, où le mouvement se fige dans l'éternité.",
-  "Mon approche est guidée par l'authenticité du moment.",
-  "Pas de mise en scène, pas d'artifice — juste la mer, la lumière, et l'énergie brute de l'océan.",
-  "Basé sur la côte atlantique, je travaille au rythme des marées et des saisons.",
+const defaultFragments = [
+  "Passionn\u00e9 par l\u2019oc\u00e9an et le surf depuis toujours.",
+  "Je capture ces instants \u00e9ph\u00e9m\u00e8res o\u00f9 la lumi\u00e8re rencontre la vague, o\u00f9 le mouvement se fige dans l\u2019\u00e9ternit\u00e9.",
+  "Mon approche est guid\u00e9e par l\u2019authenticit\u00e9 du moment.",
+  "Pas de mise en sc\u00e8ne, pas d\u2019artifice \u2014 juste la mer, la lumi\u00e8re, et l\u2019\u00e9nergie brute de l\u2019oc\u00e9an.",
+  "Bas\u00e9 sur la c\u00f4te atlantique, je travaille au rythme des mar\u00e9es et des saisons.",
 ];
 
-export function AboutContent() {
+interface AboutContentProps {
+  texts?: string[];
+}
+
+export function AboutContent({ texts }: AboutContentProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -22,6 +26,7 @@ export function AboutContent() {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const fragments = texts && texts.length > 0 ? texts : defaultFragments;
 
   return (
     <motion.div ref={ref} style={{ y }}>

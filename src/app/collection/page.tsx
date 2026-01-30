@@ -3,6 +3,8 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { Gallery } from "@/components/collection/Gallery";
 import { fetchAllPhotos } from "@/sanity/fetch";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Collection",
   description: "Explorez la collection complete de photographies de surf, ocean et paysages.",

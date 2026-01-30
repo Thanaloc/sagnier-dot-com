@@ -2,6 +2,8 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturedGrid } from "@/components/home/FeaturedGrid";
 import { fetchFeaturedPhotos, fetchSiteSettings } from "@/sanity/fetch";
 
+export const revalidate = 60;
+
 export default async function HomePage() {
   const [featured, settings] = await Promise.all([
     fetchFeaturedPhotos(),

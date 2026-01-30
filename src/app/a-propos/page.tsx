@@ -4,6 +4,8 @@ import { AboutContent } from "@/components/about/AboutContent";
 import { AboutPortrait } from "@/components/about/AboutPortrait";
 import { fetchSiteSettings } from "@/sanity/fetch";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "A propos",
   description: "Decouvrez l'histoire et la demarche artistique de Ruben Sagnier, photographe de surf et d'ocean.",

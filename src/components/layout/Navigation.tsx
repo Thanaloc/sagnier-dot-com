@@ -12,8 +12,15 @@ export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 mix-blend-difference">
-      <nav className="flex items-center justify-end px-8 py-10 md:px-16 md:py-12 lg:px-24" style={{ paddingRight: "2rem" }}>
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)",
+          height: "120%",
+        }}
+      />
+      <nav className="relative flex items-center justify-end px-8 py-10 md:px-16 md:py-12 lg:px-24" style={{ paddingRight: "2rem" }}>
         <DesktopMenu pathname={pathname} />
         <MobileMenuButton open={menuOpen} toggle={() => setMenuOpen((v) => !v)} />
       </nav>

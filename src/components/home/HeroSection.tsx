@@ -19,7 +19,7 @@ export function HeroSection({ heroImageUrl, heroSubtitle }: HeroSectionProps) {
 
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.3, 0.7]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0.75]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.4], [0, -60]);
 
@@ -41,6 +41,12 @@ export function HeroSection({ heroImageUrl, heroSubtitle }: HeroSectionProps) {
       <motion.div
         className="absolute inset-0 bg-background"
         style={{ opacity: overlayOpacity }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,0,0,0.35) 0%, transparent 100%)",
+        }}
       />
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
 

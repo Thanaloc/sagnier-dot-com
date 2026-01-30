@@ -66,20 +66,25 @@ export function Gallery({ initialPhotos }: GalleryProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
-            className="space-y-40 md:space-y-56"
           >
-            {categoryOrder.map((cat) => {
-              const catPhotos = groupedPhotos[cat];
-              if (!catPhotos) return null;
-              return (
-                <CategorySection
-                  key={cat}
-                  category={cat}
-                  photos={catPhotos}
-                  onPhotoClick={setLightboxPhoto}
-                />
-              );
-            })}
+            {(() => {
+              let sectionIndex = 0;
+              return categoryOrder.map((cat) => {
+                const catPhotos = groupedPhotos[cat];
+                if (!catPhotos) return null;
+                const isFirst = sectionIndex === 0;
+                sectionIndex++;
+                return (
+                  <CategorySection
+                    key={cat}
+                    category={cat}
+                    photos={catPhotos}
+                    onPhotoClick={setLightboxPhoto}
+                    isFirst={isFirst}
+                  />
+                );
+              });
+            })()}
           </motion.div>
         ) : (
           <motion.div
@@ -109,13 +114,15 @@ function CategorySection({
   category,
   photos,
   onPhotoClick,
+  isFirst,
 }: {
   category: PhotoCategory;
   photos: Photo[];
   onPhotoClick: (photo: Photo) => void;
+  isFirst: boolean;
 }) {
   return (
-    <section>
+    <section style={isFirst ? undefined : { paddingTop: "8rem" }}>
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"

@@ -12,7 +12,7 @@ export default async function CollectionPage() {
   const photos = await fetchAllPhotos();
 
   return (
-    <PageTransition className="pt-48 md:pt-56 pb-32 px-8 md:px-16 lg:px-24">
+    <PageTransition className="pt-48 md:pt-56 pb-32" style={{ paddingLeft: "2rem", paddingRight: "2rem" }}>
       <Gallery initialPhotos={photos} />
     </PageTransition>
   );

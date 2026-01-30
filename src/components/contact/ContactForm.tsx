@@ -32,9 +32,30 @@ export function ContactForm() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setStatus("sending");
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setStatus("sent");
-    setFormData(initialFormData);
+
+    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+    if (!formspreeId) {
+      console.warn("NEXT_PUBLIC_FORMSPREE_ID not configured");
+      setStatus("error");
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setStatus("sent");
+        setFormData(initialFormData);
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -134,9 +155,16 @@ export function ContactForm() {
               Message envoyé. Je vous répondrai rapidement.
             </motion.p>
           ) : (
-            <Button type="submit" variant="pill">
-              {status === "sending" ? "Envoi..." : "Envoyer"}
-            </Button>
+            <>
+              {status === "error" && (
+                <p className="text-cta/80 text-sm tracking-wide mb-6">
+                  Une erreur est survenue. Réessayez ou contactez-moi directement.
+                </p>
+              )}
+              <Button type="submit" variant="pill">
+                {status === "sending" ? "Envoi..." : "Envoyer"}
+              </Button>
+            </>
           )}
         </div>
       </motion.form>

@@ -3,7 +3,7 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { fetchSiteSettings } from "@/sanity/fetch";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Contact",

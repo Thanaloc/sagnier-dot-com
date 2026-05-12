@@ -18,7 +18,6 @@ export interface SanityPhoto {
   category: PhotoCategory;
   featured: boolean;
   order: number;
-  imageUrl: string;
   lqip?: string;
   dimensions?: {
     width: number;

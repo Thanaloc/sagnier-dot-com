@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
@@ -7,13 +8,57 @@ import { fetchSiteSettings } from "@/sanity/fetch";
 
 export const revalidate = 3600;
 
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sagnier-dot-com.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Ruben Sagnier Photographie",
     template: "%s | Ruben Sagnier Photographie",
   },
-  description: "Photographie de surf, ocean et paysages. Capturer l'instant, sublimer la vague.",
+  description:
+    "Photographie de surf, océan et paysages. Capturer l'instant, sublimer la vague.",
   keywords: ["photographie", "surf", "ocean", "plage", "photographe"],
+  authors: [{ name: "Ruben Sagnier" }],
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: siteUrl,
+    siteName: "Ruben Sagnier Photographie",
+    title: "Ruben Sagnier Photographie",
+    description:
+      "Photographie de surf, océan et paysages. Capturer l'instant, sublimer la vague.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ruben Sagnier Photographie",
+    description:
+      "Photographie de surf, océan et paysages. Capturer l'instant, sublimer la vague.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0B3C5D",
 };
 
 export default async function RootLayout({
@@ -24,16 +69,7 @@ export default async function RootLayout({
   const settings = await fetchSiteSettings();
 
   return (
-    <html lang="fr">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="fr" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="antialiased">
         <SmoothScroll />
         <Navigation />

@@ -107,21 +107,23 @@ function FeaturedPhoto({
         viewport={{ once: true, margin: "-50px" }}
         style={{ width: layout.width }}
       >
-      <div className="group relative overflow-hidden">
-        <motion.div style={{ y, scale }}>
-          <Image
-            src={photo.src}
-            alt={photo.alt}
-            width={photo.width}
-            height={photo.height}
-            priority={index < 2}
-            className="w-full h-auto object-cover transition-all duration-1000 ease-out group-hover:scale-[1.02]"
-            sizes={index === 0 ? "100vw" : "(max-width: 768px) 100vw, 70vw"}
-          />
-        </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-      </div>
-    </motion.div>
+        <div className="group relative overflow-hidden">
+          <motion.div style={{ y, scale }}>
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              width={photo.width}
+              height={photo.height}
+              priority={index < 2}
+              className="w-full h-auto object-cover transition-all duration-1000 ease-out group-hover:scale-[1.02]"
+              sizes={index === 0 ? "100vw" : "(max-width: 768px) 100vw, 70vw"}
+              placeholder={photo.lqip ? "blur" : "empty"}
+              blurDataURL={photo.lqip}
+            />
+          </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        </div>
+      </motion.div>
     </div>
   );
 }

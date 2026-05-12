@@ -20,10 +20,16 @@ const initialFormData: FormData = {
   message: "",
 };
 
+const FIELD_AUTOCOMPLETE: Record<keyof FormData, string> = {
+  name: "name",
+  email: "email",
+  subject: "off",
+  message: "off",
+};
+
 export function ContactForm() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [isFocused, setIsFocused] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -31,6 +37,7 @@ export function ContactForm() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (status === "sending") return;
     setStatus("sending");
 
     const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
@@ -43,7 +50,10 @@ export function ContactForm() {
     try {
       const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify(formData),
       });
 
@@ -88,34 +98,30 @@ export function ContactForm() {
         transition={{ duration: 1.2, delay: 0.7, ease: tidal }}
         onSubmit={handleSubmit}
         className="space-y-12"
+        noValidate={false}
+        aria-busy={status === "sending"}
       >
-        <motion.div
-          animate={{ opacity: isFocused ? 1 : 0.85 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-            <FormField
-              label="Nom"
-              name="name"
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              required
-            />
-            <FormField
-              label="Email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              required
-            />
-          </div>
-        </motion.div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+          <FormField
+            label="Nom"
+            name="name"
+            type="text"
+            value={formData.name}
+            onChange={handleChange}
+            autoComplete={FIELD_AUTOCOMPLETE.name}
+            required
+          />
+          <FormField
+            label="Email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            autoComplete={FIELD_AUTOCOMPLETE.email}
+            inputMode="email"
+            required
+          />
+        </div>
 
         <FormField
           label="Sujet"
@@ -123,28 +129,30 @@ export function ContactForm() {
           type="text"
           value={formData.subject}
           onChange={handleChange}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          autoComplete={FIELD_AUTOCOMPLETE.subject}
           required
         />
 
         <div>
-          <label className="block text-[11px] tracking-[0.25em] uppercase text-foreground/30 mb-5">
+          <label
+            htmlFor="message"
+            className="block text-[11px] tracking-[0.25em] uppercase text-foreground/30 mb-5"
+          >
             Message
           </label>
           <textarea
+            id="message"
             name="message"
             value={formData.message}
             onChange={handleChange}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
             required
             rows={6}
+            autoComplete={FIELD_AUTOCOMPLETE.message}
             className="w-full bg-transparent border-b border-foreground/10 text-foreground py-4 focus:outline-none focus:border-detail focus:border-b-2 transition-all duration-500 resize-none"
           />
         </div>
 
-        <div style={{ paddingTop: "1.5rem" }}>
+        <div style={{ paddingTop: "1.5rem" }} aria-live="polite">
           {status === "sent" ? (
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -161,7 +169,7 @@ export function ContactForm() {
                   Une erreur est survenue. Réessayez ou contactez-moi directement.
                 </p>
               )}
-              <Button type="submit" variant="pill">
+              <Button type="submit" variant="pill" disabled={status === "sending"}>
                 {status === "sending" ? "Envoi..." : "Envoyer"}
               </Button>
             </>
@@ -172,25 +180,27 @@ export function ContactForm() {
   );
 }
 
+interface FormFieldProps {
+  label: string;
+  name: keyof FormData;
+  type: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  autoComplete?: string;
+  inputMode?: "text" | "email" | "url" | "tel";
+  required?: boolean;
+}
+
 function FormField({
   label,
   name,
   type,
   value,
   onChange,
-  onFocus,
-  onBlur,
+  autoComplete,
+  inputMode,
   required,
-}: {
-  label: string;
-  name: string;
-  type: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
-  required?: boolean;
-}) {
+}: FormFieldProps) {
   return (
     <div>
       <label htmlFor={name} className="block text-[11px] tracking-[0.25em] uppercase text-foreground/30 mb-5">
@@ -202,8 +212,8 @@ function FormField({
         type={type}
         value={value}
         onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
         required={required}
         className="w-full bg-transparent border-b border-foreground/10 text-foreground py-4 focus:outline-none focus:border-detail focus:border-b-2 transition-all duration-500"
       />

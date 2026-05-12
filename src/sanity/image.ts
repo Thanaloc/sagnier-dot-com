@@ -1,9 +1,15 @@
 import imageUrlBuilder from "@sanity/image-url";
-import { getClient } from "./client";
+import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import type { SanityClient } from "next-sanity";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function urlFor(source: any) {
-  const client = getClient();
-  if (!client) throw new Error("Sanity client not configured");
-  return imageUrlBuilder(client).image(source);
+let _builder: ImageUrlBuilder | null = null;
+
+function getBuilder(client: SanityClient): ImageUrlBuilder {
+  if (!_builder) _builder = imageUrlBuilder(client);
+  return _builder;
+}
+
+export function urlFor(client: SanityClient, source: SanityImageSource) {
+  return getBuilder(client).image(source);
 }

@@ -1,32 +1,26 @@
 import { groq } from "next-sanity";
 
+const photoProjection = groq`
+  _id,
+  title,
+  image,
+  alt,
+  category,
+  featured,
+  order,
+  "lqip": image.asset->metadata.lqip,
+  "dimensions": image.asset->metadata.dimensions
+`;
+
 export const allPhotosQuery = groq`
   *[_type == "photo"] | order(order asc) {
-    _id,
-    title,
-    image,
-    alt,
-    category,
-    featured,
-    order,
-    "imageUrl": image.asset->url,
-    "lqip": image.asset->metadata.lqip,
-    "dimensions": image.asset->metadata.dimensions
+    ${photoProjection}
   }
 `;
 
 export const featuredPhotosQuery = groq`
   *[_type == "photo" && featured == true] | order(order asc) {
-    _id,
-    title,
-    image,
-    alt,
-    category,
-    featured,
-    order,
-    "imageUrl": image.asset->url,
-    "lqip": image.asset->metadata.lqip,
-    "dimensions": image.asset->metadata.dimensions
+    ${photoProjection}
   }
 `;
 
@@ -47,15 +41,6 @@ export const siteSettingsQuery = groq`
 
 export const photosByCategoryQuery = groq`
   *[_type == "photo" && category == $category] | order(order asc) {
-    _id,
-    title,
-    image,
-    alt,
-    category,
-    featured,
-    order,
-    "imageUrl": image.asset->url,
-    "lqip": image.asset->metadata.lqip,
-    "dimensions": image.asset->metadata.dimensions
+    ${photoProjection}
   }
 `;

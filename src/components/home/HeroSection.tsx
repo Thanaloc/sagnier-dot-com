@@ -23,7 +23,7 @@ export function HeroSection({ heroImageUrl, heroSubtitle }: HeroSectionProps) {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.4], [0, -60]);
 
-  const bgImage = heroImageUrl ?? "/photos/surf-01.svg";
+  const bgImage = (heroImageUrl ?? "/photos/surf-01.svg").replace(/['"\\]/g, "");
 
   return (
     <section ref={ref} className="relative h-screen overflow-hidden">

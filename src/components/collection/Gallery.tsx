@@ -173,6 +173,9 @@ function GridPhoto({
 }) {
   return (
     <motion.div
+      role="button"
+      tabIndex={0}
+      aria-label={`Agrandir : ${photo.alt}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
@@ -181,8 +184,14 @@ function GridPhoto({
         delay: index % 3 * 0.1,
         ease: [0.25, 0.1, 0.25, 1],
       }}
-      className="mb-4 md:mb-5 break-inside-avoid group cursor-pointer"
+      className="mb-4 md:mb-5 break-inside-avoid group cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-detail focus-visible:outline-offset-2"
       onClick={() => onClick(photo)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick(photo);
+        }
+      }}
     >
       <div className="relative overflow-hidden rounded-sm">
         <Image
@@ -192,6 +201,8 @@ function GridPhoto({
           height={photo.height}
           className="w-full h-auto object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          placeholder={photo.lqip ? "blur" : "empty"}
+          blurDataURL={photo.lqip}
         />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
         <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">

@@ -1,5 +1,7 @@
 import { Photo } from "@/types/photo";
 
+// Fallback dataset used when Sanity is unconfigured or unreachable.
+// Source of truth in production is Sanity (see src/sanity/fetch.ts).
 export const photos: Photo[] = [
   {
     id: "surf-01",

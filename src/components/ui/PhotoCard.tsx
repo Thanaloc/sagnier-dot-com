@@ -30,6 +30,8 @@ export function PhotoCard({ photo, priority = false, onClick }: PhotoCardProps) 
           priority={priority}
           className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          placeholder={photo.lqip ? "blur" : "empty"}
+          blurDataURL={photo.lqip}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>

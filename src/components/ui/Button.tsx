@@ -12,6 +12,7 @@ interface ButtonProps {
   type?: "button" | "submit";
   className?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 const styles = {
@@ -32,11 +33,13 @@ export function Button({
   type = "button",
   className,
   onClick,
+  disabled = false,
 }: ButtonProps) {
   const classes = clsx(
     "inline-flex items-center justify-center text-[11px] tracking-[0.25em] uppercase transition-all duration-500",
     variant !== "ghost" && variant !== "pill" && "px-14 py-5",
     styles[variant],
+    disabled && "opacity-50 cursor-not-allowed pointer-events-none",
     className
   );
 
@@ -63,8 +66,9 @@ export function Button({
       className={classes}
       style={pillStyle}
       onClick={onClick}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.97 }}
+      disabled={disabled}
+      whileHover={disabled ? undefined : { scale: 1.05 }}
+      whileTap={disabled ? undefined : { scale: 0.97 }}
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
     >
       {children}

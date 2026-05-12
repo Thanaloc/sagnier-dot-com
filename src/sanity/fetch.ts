@@ -2,6 +2,7 @@ import { getClient } from "./client";
 import { urlFor } from "./image";
 import { allPhotosQuery, featuredPhotosQuery, siteSettingsQuery } from "./queries";
 import type { Photo, SanityPhoto } from "@/types/photo";
+import type { SanityClient } from "next-sanity";
 
 export interface SiteSettings {
   heroImageUrl: string | null;
@@ -13,13 +14,18 @@ export interface SiteSettings {
   linkedinUrl: string | null;
 }
 
-function sanityToPhoto(sp: SanityPhoto): Photo {
+export const SANITY_CACHE_TAGS = {
+  photos: "sanity:photos",
+  settings: "sanity:settings",
+} as const;
+
+function sanityToPhoto(client: SanityClient, sp: SanityPhoto): Photo {
   const width = sp.dimensions?.width ?? 1600;
   const height = sp.dimensions?.height ?? 1067;
 
   return {
     id: sp._id,
-    src: urlFor(sp.image).width(2400).quality(95).auto("format").url(),
+    src: urlFor(client, sp.image).width(2400).quality(90).auto("format").url(),
     alt: sp.alt,
     width,
     height,
@@ -30,18 +36,30 @@ function sanityToPhoto(sp: SanityPhoto): Photo {
   };
 }
 
-export async function fetchAllPhotos(): Promise<Photo[]> {
+async function safeFetch<T>(
+  query: string,
+  tag: string
+): Promise<{ client: SanityClient; data: T } | null> {
   const client = getClient();
+  if (!client) return null;
 
-  if (client) {
-    try {
-      const sanityPhotos = await client.fetch<SanityPhoto[]>(allPhotosQuery);
-      if (sanityPhotos && sanityPhotos.length > 0) {
-        return sanityPhotos.map(sanityToPhoto);
-      }
-    } catch {
-      console.warn("Sanity fetch failed, falling back to static data");
-    }
+  try {
+    const data = await client.fetch<T>(
+      query,
+      {},
+      { next: { tags: [tag] } }
+    );
+    return { client, data };
+  } catch (error) {
+    console.warn(`Sanity fetch failed for tag "${tag}":`, error);
+    return null;
+  }
+}
+
+export async function fetchAllPhotos(): Promise<Photo[]> {
+  const result = await safeFetch<SanityPhoto[]>(allPhotosQuery, SANITY_CACHE_TAGS.photos);
+  if (result && result.data.length > 0) {
+    return result.data.map((sp) => sanityToPhoto(result.client, sp));
   }
 
   const { photos } = await import("@/data/photos");
@@ -49,17 +67,9 @@ export async function fetchAllPhotos(): Promise<Photo[]> {
 }
 
 export async function fetchFeaturedPhotos(): Promise<Photo[]> {
-  const client = getClient();
-
-  if (client) {
-    try {
-      const sanityPhotos = await client.fetch<SanityPhoto[]>(featuredPhotosQuery);
-      if (sanityPhotos && sanityPhotos.length > 0) {
-        return sanityPhotos.map(sanityToPhoto);
-      }
-    } catch {
-      console.warn("Sanity fetch failed, falling back to static data");
-    }
+  const result = await safeFetch<SanityPhoto[]>(featuredPhotosQuery, SANITY_CACHE_TAGS.photos);
+  if (result && result.data.length > 0) {
+    return result.data.map((sp) => sanityToPhoto(result.client, sp));
   }
 
   const { getFeaturedPhotos } = await import("@/data/photos");
@@ -67,16 +77,9 @@ export async function fetchFeaturedPhotos(): Promise<Photo[]> {
 }
 
 export async function fetchSiteSettings(): Promise<SiteSettings | null> {
-  const client = getClient();
-
-  if (client) {
-    try {
-      const settings = await client.fetch<SiteSettings | null>(siteSettingsQuery);
-      if (settings) return settings;
-    } catch {
-      console.warn("Sanity settings fetch failed, using defaults");
-    }
-  }
-
-  return null;
+  const result = await safeFetch<SiteSettings | null>(
+    siteSettingsQuery,
+    SANITY_CACHE_TAGS.settings
+  );
+  return result?.data ?? null;
 }

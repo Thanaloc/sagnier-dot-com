@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "gen:placeholders": "node --experimental-strip-types scripts/generate-placeholders.ts"
   },
   "dependencies": {
     "@sanity/image-url": "^1.2.0",

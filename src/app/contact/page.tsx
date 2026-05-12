@@ -12,7 +12,10 @@ export const metadata: Metadata = {
 
 export default async function ContactPage() {
   const settings = await fetchSiteSettings();
-  const bgImage = settings?.contactBackgroundUrl ?? "/photos/ocean-02.svg";
+  const bgImage = (settings?.contactBackgroundUrl ?? "/photos/ocean-02.svg").replace(
+    /['"\\]/g,
+    ""
+  );
 
   return (
     <PageTransition className="relative min-h-screen px-8 md:px-16 lg:px-24" style={{ paddingTop: "10rem", paddingBottom: "6rem" }}>

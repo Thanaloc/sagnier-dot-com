@@ -8,7 +8,8 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Collection",
-  description: "Explorez la collection complete de photographies de surf, ocean et paysages.",
+  description:
+    "Explorez la collection complète de photographies de surf, océan et paysages.",
 };
 
 export default async function CollectionPage() {

@@ -8,8 +8,9 @@ import { pageShell } from "@/config/spacing";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "A propos",
-  description: "Decouvrez l'histoire et la demarche artistique de Ruben Sagnier, photographe de surf et d'ocean.",
+  title: "À propos",
+  description:
+    "Découvrez l'histoire et la démarche artistique de Ruben Sagnier, photographe de surf et d'océan.",
 };
 
 export default async function AboutPage() {

@@ -80,6 +80,6 @@ export const transitions = {
 export const navigation = [
   { label: "Accueil", href: "/" },
   { label: "Collection", href: "/collection" },
-  { label: "A propos", href: "/a-propos" },
+  { label: "À propos", href: "/a-propos" },
   { label: "Contact", href: "/contact" },
 ] as const;

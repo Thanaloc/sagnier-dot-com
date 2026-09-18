@@ -35,7 +35,7 @@ export function AboutContent({ texts }: AboutContentProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: tidal }}
       >
-        <p className="text-xs tracking-[0.5em] uppercase text-detail mb-8">A propos</p>
+        <p className="text-xs tracking-[0.5em] uppercase text-detail mb-8">À propos</p>
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-wide text-foreground">
           Ruben Sagnier
         </h1>

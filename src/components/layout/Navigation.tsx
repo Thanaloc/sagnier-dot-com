@@ -23,8 +23,8 @@ export function Navigation() {
         />
       )}
       <nav
-        className="relative flex items-center justify-end"
-        style={{ padding: "2.5rem 2rem 2.5rem 2rem", zIndex: 60 }}
+        className="relative flex items-center justify-end px-8 py-8 md:py-10"
+        style={{ zIndex: 60 }}
       >
         <DesktopMenu pathname={pathname} />
         <MobileMenuButton open={menuOpen} toggle={() => setMenuOpen((v) => !v)} />
@@ -84,8 +84,8 @@ function MobileMenuButton({ open, toggle }: { open: boolean; toggle: () => void 
   return (
     <button
       onClick={toggle}
-      className="flex flex-col gap-2 md:hidden w-8 h-6 justify-center"
-      style={{ position: "relative", zIndex: 70 }}
+      className="relative flex flex-col gap-2 md:hidden w-8 h-6 justify-center"
+      style={{ zIndex: 70 }}
       aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
     >
       <motion.span

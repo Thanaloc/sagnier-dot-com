@@ -44,7 +44,7 @@ export type PhotoCategory = "surf" | "ocean" | "portrait" | "paysage";
 
 export const categoryLabels: Record<PhotoCategory, string> = {
   surf: "Surf",
-  ocean: "Ocean",
+  ocean: "Océan",
   portrait: "Portrait",
   paysage: "Paysage",
 };

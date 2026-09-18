@@ -5,6 +5,8 @@ import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { fetchSiteSettings } from "@/sanity/fetch";
+import { siteUrl, siteName, defaultDescription } from "@/config/site";
+import { mainBottom } from "@/config/spacing";
 
 export const revalidate = 3600;
 
@@ -21,33 +23,27 @@ const inter = Inter({
   display: "swap",
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sagnier-dot-com.vercel.app";
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ruben Sagnier Photographie",
-    template: "%s | Ruben Sagnier Photographie",
+    default: siteName,
+    template: `%s | ${siteName}`,
   },
-  description:
-    "Photographie de surf, océan et paysages. Capturer l'instant, sublimer la vague.",
-  keywords: ["photographie", "surf", "ocean", "plage", "photographe"],
+  description: defaultDescription,
+  keywords: ["photographie", "surf", "océan", "plage", "photographe"],
   authors: [{ name: "Ruben Sagnier" }],
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: siteUrl,
-    siteName: "Ruben Sagnier Photographie",
-    title: "Ruben Sagnier Photographie",
-    description:
-      "Photographie de surf, océan et paysages. Capturer l'instant, sublimer la vague.",
+    siteName,
+    title: siteName,
+    description: defaultDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ruben Sagnier Photographie",
-    description:
-      "Photographie de surf, océan et paysages. Capturer l'instant, sublimer la vague.",
+    title: siteName,
+    description: defaultDescription,
   },
   robots: {
     index: true,
@@ -73,7 +69,7 @@ export default async function RootLayout({
       <body className="antialiased">
         <SmoothScroll />
         <Navigation />
-        <main className="min-h-screen" style={{ paddingBottom: "6rem" }}>{children}</main>
+        <main className={`min-h-screen ${mainBottom}`}>{children}</main>
         <Footer
           instagramUrl={settings?.instagramUrl ?? undefined}
           linkedinUrl={settings?.linkedinUrl ?? undefined}

@@ -37,13 +37,11 @@ export function Button({
 }: ButtonProps) {
   const classes = clsx(
     "inline-flex items-center justify-center text-[11px] tracking-[0.25em] uppercase transition-all duration-500",
-    variant !== "ghost" && variant !== "pill" && "px-14 py-5",
+    variant !== "ghost" && "px-14 py-5",
     styles[variant],
     disabled && "opacity-50 cursor-not-allowed pointer-events-none",
     className
   );
-
-  const pillStyle = variant === "pill" ? { padding: "1.25rem 3.5rem" } : undefined;
 
   if (href) {
     return (
@@ -53,7 +51,7 @@ export function Button({
         transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         className="inline-block"
       >
-        <Link href={href} className={classes} style={pillStyle}>
+        <Link href={href} className={classes}>
           {children}
         </Link>
       </motion.div>
@@ -64,7 +62,6 @@ export function Button({
     <motion.button
       type={type}
       className={classes}
-      style={pillStyle}
       onClick={onClick}
       disabled={disabled}
       whileHover={disabled ? undefined : { scale: 1.05 }}

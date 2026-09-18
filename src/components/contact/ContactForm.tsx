@@ -74,7 +74,7 @@ export function ContactForm() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: tidal }}
-        style={{ marginBottom: "2rem" }}
+        className="mb-8"
       >
         <p className="text-xs tracking-[0.5em] uppercase text-detail mb-8">Contact</p>
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-wide text-foreground">
@@ -86,8 +86,7 @@ export function ContactForm() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.4, ease: tidal }}
-        className="text-base md:text-lg text-foreground/35 leading-loose"
-        style={{ marginBottom: "4rem" }}
+        className="text-base md:text-lg text-foreground/35 leading-loose mb-12 md:mb-16"
       >
         Un projet, une idée, une envie de collaborer — laissez un message, je vous répondrai avec le prochain courant.
       </motion.p>
@@ -152,7 +151,7 @@ export function ContactForm() {
           />
         </div>
 
-        <div style={{ paddingTop: "1.5rem" }} aria-live="polite">
+        <div className="pt-6" aria-live="polite">
           {status === "sent" ? (
             <motion.p
               initial={{ opacity: 0, y: 10 }}

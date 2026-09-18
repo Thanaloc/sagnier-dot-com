@@ -13,10 +13,17 @@
   --font-display: "Fraunces", "Georgia", serif;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/*
+ * Kept inside @layer base: unlayered rules outrank every cascade layer, so a
+ * bare `*` reset here would silently beat all Tailwind padding, margin and
+ * mx-auto utilities, which live in @layer utilities.
+ */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 html.lenis,
@@ -32,20 +39,8 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
-@keyframes breathe {
-  0%, 100% {
-    background-color: #0B3C5D;
-  }
-  33% {
-    background-color: #0E4A75;
-  }
-  66% {
-    background-color: #093350;
-  }
-}
-
 body {
-  background: var(--color-background);
+  background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
   font-weight: 300;
@@ -54,7 +49,6 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  animation: breathe 12s ease-in-out infinite;
 }
 
 h1, h2, h3 {
@@ -84,9 +78,5 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  body {
-    animation: none !important;
   }
 }

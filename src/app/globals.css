@@ -13,10 +13,17 @@
   --font-display: "Fraunces", "Georgia", serif;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/*
+ * Kept inside @layer base: unlayered rules outrank every cascade layer, so a
+ * bare `*` reset here would silently beat all Tailwind padding, margin and
+ * mx-auto utilities, which live in @layer utilities.
+ */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 html.lenis,

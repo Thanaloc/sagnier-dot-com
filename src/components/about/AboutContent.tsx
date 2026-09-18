@@ -41,7 +41,7 @@ export function AboutContent({ texts }: AboutContentProps) {
         </h1>
       </motion.div>
 
-      <div className="space-y-10" style={{ marginTop: "5rem" }}>
+      <div className="space-y-10 mt-16 md:mt-20">
         {fragments.map((text, i) => (
           <motion.p
             key={i}
@@ -67,8 +67,7 @@ export function AboutContent({ texts }: AboutContentProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 2.2, ease: tidal }}
-        className="text-center"
-        style={{ marginTop: "4rem" }}
+        className="text-center mt-12 md:mt-16"
       >
         <Button href="/contact" variant="pill">Me contacter</Button>
       </motion.div>

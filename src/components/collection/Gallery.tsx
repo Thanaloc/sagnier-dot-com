@@ -93,7 +93,7 @@ export function Gallery({ initialPhotos }: GalleryProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            style={{ paddingTop: "1.5rem" }}
+            className="pt-6"
           >
             <PhotoGrid photos={filteredPhotos} onPhotoClick={setLightboxPhoto} />
           </motion.div>
@@ -122,7 +122,7 @@ function CategorySection({
   isFirst: boolean;
 }) {
   return (
-    <section style={isFirst ? undefined : { paddingTop: "5rem" }}>
+    <section className={isFirst ? undefined : "pt-16 md:pt-20"}>
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"

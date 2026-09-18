@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { pageGutter } from "@/config/spacing";
 
 interface FooterProps {
   instagramUrl?: string;
@@ -9,7 +10,7 @@ export function Footer({ instagramUrl, linkedinUrl }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="pt-32 pb-20" style={{ paddingLeft: "2rem", paddingRight: "2rem" }}>
+    <footer className={`pt-24 md:pt-32 pb-16 md:pb-20 ${pageGutter}`}>
       <div className="w-full">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           <Link

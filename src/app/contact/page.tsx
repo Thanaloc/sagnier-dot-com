@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { fetchSiteSettings } from "@/sanity/fetch";
+import { pageShell } from "@/config/spacing";
 
 export const revalidate = 3600;
 
@@ -18,7 +19,7 @@ export default async function ContactPage() {
   );
 
   return (
-    <PageTransition className="relative min-h-screen px-8 md:px-16 lg:px-24" style={{ paddingTop: "10rem", paddingBottom: "6rem" }}>
+    <PageTransition className={`relative min-h-screen ${pageShell}`}>
       <div
         className="fixed inset-0 bg-cover bg-center pointer-events-none"
         style={{

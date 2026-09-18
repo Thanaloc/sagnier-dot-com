@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useMemo } from "react";
 import { transitions } from "@/config/theme";
 import { Button } from "@/components/ui/Button";
+import { bleedGutter } from "@/config/spacing";
 import type { Photo } from "@/types/photo";
 
 interface FeaturedGridProps {
@@ -33,7 +34,7 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
   );
 
   return (
-    <section style={{ padding: "12rem 1rem 12rem 1rem" }}>
+    <section className={`py-32 md:py-48 ${bleedGutter}`}>
       <motion.div
         variants={transitions.fadeUp}
         initial="initial"
@@ -63,8 +64,7 @@ export function FeaturedGrid({ photos }: FeaturedGridProps) {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="text-center"
-        style={{ marginTop: "11rem" }}
+        className="text-center mt-28 md:mt-44"
       >
         <Button href="/collection" variant="pill">
           Toute la collection

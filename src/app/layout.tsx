@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { fetchSiteSettings } from "@/sanity/fetch";
 import { siteUrl, siteName, defaultDescription } from "@/config/site";
+import { mainBottom } from "@/config/spacing";
 
 export const revalidate = 3600;
 
@@ -68,7 +69,7 @@ export default async function RootLayout({
       <body className="antialiased">
         <SmoothScroll />
         <Navigation />
-        <main className="min-h-screen" style={{ paddingBottom: "6rem" }}>{children}</main>
+        <main className={`min-h-screen ${mainBottom}`}>{children}</main>
         <Footer
           instagramUrl={settings?.instagramUrl ?? undefined}
           linkedinUrl={settings?.linkedinUrl ?? undefined}

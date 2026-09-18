@@ -28,7 +28,7 @@ export default async function ContactPage() {
           filter: "blur(6px) saturate(0.3)",
         }}
       />
-      <div className="relative z-10 max-w-2xl mx-auto" style={{ paddingLeft: "2rem" }}>
+      <div className="relative z-10 max-w-2xl mx-auto">
         <ContactForm />
       </div>
     </PageTransition>
